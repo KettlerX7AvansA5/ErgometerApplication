@@ -43,6 +43,8 @@ namespace ErgometerApplication
             this.timeButton = new System.Windows.Forms.Button();
             this.energyButton = new System.Windows.Forms.Button();
             this.distanceButton = new System.Windows.Forms.Button();
+            this.saveTimer = new System.Windows.Forms.Timer(this.components);
+            this.writeTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -67,11 +69,15 @@ namespace ErgometerApplication
             // ComPortBox
             // 
             this.ComPortBox.FormattingEnabled = true;
-            this.ComPortBox.Items.AddRange(SerialPort.GetPortNames());
+            this.ComPortBox.Items.AddRange(new object[] {
+            "CNCA0",
+            "CNCB0",
+            "COM3",
+            "COM4"});
             this.ComPortBox.Location = new System.Drawing.Point(12, 291);
             this.ComPortBox.Name = "ComPortBox";
             this.ComPortBox.Size = new System.Drawing.Size(97, 24);
-            this.ComPortBox.SelectedItem = 1;
+            this.ComPortBox.TabIndex = 11;
             // 
             // statusButton
             // 
@@ -203,5 +209,7 @@ namespace ErgometerApplication
         private System.Windows.Forms.Button timeButton;
         private System.Windows.Forms.Button energyButton;
         private System.Windows.Forms.Button distanceButton;
+        private System.Windows.Forms.Timer saveTimer;
+        private System.Windows.Forms.Timer writeTimer;
     }
 }

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ErgometerApplication
 {
-    class Meting
+    public class Meting
     {
-        public int HeartBeat { get; }
-        public int RPM { get; }
-        public double Speed { get; }
-        public double Distance { get; }
-        public int Power { get; }
-        public int Energy { get; }
-        public int Seconds { get; }
-        public int ActualPower { get; }
+        public int HeartBeat { get; set; }
+        public int RPM { get; set; }
+        public double Speed { get; set; }
+        public double Distance { get; set; }
+        public int Power { get; set; }
+        public int Energy { get; set; }
+        public int Seconds { get; set; }
+        public int ActualPower { get; set; }
 
         public Meting(int heartbeat, int rpm, double speed, double distance, int power, int energy, int seconds, int actualpower)
         {
@@ -28,7 +28,10 @@ namespace ErgometerApplication
             Seconds = seconds;
             ActualPower = actualpower;
         }
+        public Meting()
+        {
 
+        }
         public override string ToString()
         {
             string temp = "";

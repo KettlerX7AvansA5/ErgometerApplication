@@ -15,7 +15,8 @@ namespace ErgometerApplication
     public partial class Ergometer : Form
     {
         private ComPort comPort;
-
+        private Meting schrijfweg;
+        private List<Meting> _data;
         public Ergometer()
         {
             InitializeComponent();
@@ -154,12 +155,54 @@ namespace ErgometerApplication
             {
                 statusButton.Enabled = false;
                 updateTimer.Start();
+                saveTimer.Start();
+                writeTimer.Start();
             }
             else
             {
                 statusButton.Enabled = true;
                 updateTimer.Stop();
+                saveTimer.Stop();
+                writeTimer.Stop();
             }
+        }
+
+        private void saveTimer_Tick(object sender, EventArgs e)
+        {
+            saveData(schrijfweg);
+        }
+
+        private void writeFile()
+        {
+
+            string json = JsonConvert.SerializeObject(_data.ToArray());
+
+            System.IO.File.WriteAllText(@Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//path.ergo", json);
+        }
+        private void saveData(Meting meting)
+        {
+            _data = new List<Meting>();
+            _data.Add(new Meting()
+            {
+                HeartBeat = schrijfweg.HeartBeat,
+                RPM = schrijfweg.RPM,
+                Speed = schrijfweg.Speed,
+                Distance = schrijfweg.Distance,
+                Power = schrijfweg.Power,
+                Energy = schrijfweg.Energy,
+                Seconds = schrijfweg.Seconds,
+                ActualPower = schrijfweg.ActualPower
+            });
+        }
+
+        private void writeTimer_Tick(object sender, EventArgs e)
+        {
+            writeFile();
+        }
+
+        private void Ergometer_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
