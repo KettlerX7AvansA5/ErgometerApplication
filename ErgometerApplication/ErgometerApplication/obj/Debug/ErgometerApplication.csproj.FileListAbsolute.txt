@@ -1,1 +1,9 @@
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe.config
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe.config
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.pdb
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csprojResolveAssemblyReference.cache
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Properties.Resources.resources
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csproj.GenerateResource.Cache
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.exe
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
