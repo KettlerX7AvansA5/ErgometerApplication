@@ -9,3 +9,6 @@ C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\Ergome
 C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.exe
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Ergometer.resources
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Remco\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.xml
