@@ -16,8 +16,9 @@ namespace ErgometerApplication
         public int Energy { get; set; }
         public int Seconds { get; set; }
         public int ActualPower { get; set; }
+        public double TimeStamp { get; }
 
-        public Meting(int heartbeat, int rpm, double speed, double distance, int power, int energy, int seconds, int actualpower)
+        public Meting(int heartbeat, int rpm, double speed, double distance, int power, int energy, int seconds, int actualpower, double timestamp)
         {
             HeartBeat = heartbeat;
             RPM = rpm;
@@ -27,6 +28,7 @@ namespace ErgometerApplication
             Energy = energy;
             Seconds = seconds;
             ActualPower = actualpower;
+            TimeStamp = timestamp;
         }
         public Meting()
         {

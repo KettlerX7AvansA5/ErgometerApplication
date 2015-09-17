@@ -26,7 +26,7 @@ namespace ErgometerApplication
             string[] temp = status[6].Split(':');
             int seconds = (int.Parse(temp[0]) * 60) + (int.Parse(temp[1]));
 
-            return new Meting(heartbeat, rpm, speed, distance, power, energy, seconds, actualpower);
+            return new Meting(heartbeat, rpm, speed, distance, power, energy, seconds, actualpower, (DateTime.Now - DateTime.Parse("1/1/1870 0:0:0")).TotalMilliseconds);
         }
     }
 }

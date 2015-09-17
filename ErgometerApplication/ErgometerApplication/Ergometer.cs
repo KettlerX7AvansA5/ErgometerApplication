@@ -10,20 +10,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ErgometerApplication
 {
     public partial class Ergometer : Form
     {
         private ComPort comPort;
-        private Meting Write;
         private List<Meting> _data;
         private int i = 0;
-        List<Meting> readedFile = new List<Meting>();
+        List<Meting> readFile = new List<Meting>();
         public Ergometer()
         {
             InitializeComponent();
             comPort = new ComPort();
+            _data = new List<Meting>();
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -54,12 +55,9 @@ namespace ErgometerApplication
                     string response = comPort.Read();
                     Console.WriteLine(response);
 
-                    Meting test = FormatHelper.Status(response);
-
-                    Write = test;
-
-                    string test2 = test.ToString();
-                    richTextBox1.Text = test2;
+                    Meting m = FormatHelper.Status(response);
+                    SaveData(m);
+                    richTextBox1.Text = m.ToString();
                 }
             }
             else
@@ -79,6 +77,8 @@ namespace ErgometerApplication
                     ComPortBox.Enabled = true;
                     richTextBox1.Text = "";
 
+                    WriteFile();
+
                 }
             }
 
@@ -90,7 +90,11 @@ namespace ErgometerApplication
             comPort.Write("ST");
             string response = comPort.Read();
             Console.WriteLine(response);
-            richTextBox1.Text = FormatHelper.Status(response).ToString();
+            Meting m = FormatHelper.Status(response);
+            SaveData(m);
+            richTextBox1.Text = m.ToString();
+
+            WriteFile();
         }
 
         private void resetButton_Click(object sender, EventArgs e)
@@ -109,7 +113,9 @@ namespace ErgometerApplication
                 comPort.Write("ST");
                 string response = comPort.Read();
                 Console.WriteLine(response);
-                richTextBox1.Text = FormatHelper.Status(response).ToString();
+                Meting m = FormatHelper.Status(response);
+                SaveData(m);
+                richTextBox1.Text = m.ToString();
             }
         }
 
@@ -161,102 +167,89 @@ namespace ErgometerApplication
             {
                 statusButton.Enabled = false;
                 updateTimer.Start();
-                saveTimer.Start();
                 writeTimer.Start();
             }
             else
             {
                 statusButton.Enabled = true;
                 updateTimer.Stop();
-                saveTimer.Stop();
                 writeTimer.Stop();
             }
         }
 
-        private void saveTimer_Tick(object sender, EventArgs e)
-        {
-            saveData(Write);
-        }
+        
 
-        private void writeFile()
+        private void readButton_Click(object sender, EventArgs e)
         {
-
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(_data.ToArray());
-            System.IO.File.WriteAllText(@Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//path.ergo", json);
-        }
-        private void saveData(Meting meting)
-        {
-            _data = new List<Meting>();
-            _data.Add(new Meting()
+            ReadFile();
+            if (readFile != null)
             {
-                HeartBeat = Write.HeartBeat,
-                RPM = Write.RPM,
-                Speed = Write.Speed,
-                Distance = Write.Distance,
-                Power = Write.Power,
-                Energy = Write.Energy,
-                Seconds = Write.Seconds,
-                ActualPower = Write.ActualPower
-            });
+                metingNextButton.Enabled = true;
+                metingBackButton.Enabled = true;
+            }
+
+        }
+
+        private void metingBackButton_Click(object sender, EventArgs e)
+        {
+            if (i > 0)
+            { i--;
+              metingNextButton.Enabled = true;
+            }
+            if (i == 0)
+            {
+                metingBackButton.Enabled = false;
+            }
+            richTextBox1.Text = readFile.ElementAt(i).ToString();
+        }
+
+        private void metingNextButton_Click(object sender, EventArgs e)
+        {
+            if (i < (readFile.Count - 1))
+            { i++;
+              metingBackButton.Enabled = true;
+            }
+            if (i == (readFile.Count - 1))
+            {
+                metingNextButton.Enabled = false;
+            }
+            richTextBox1.Text = readFile.ElementAt(i).ToString();
         }
 
         private void writeTimer_Tick(object sender, EventArgs e)
         {
-            writeFile();
+            WriteFile();
         }
 
-        private void readFile()
+
+        private void WriteFile()
+        {
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(_data);
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ErgometerSessionData.ergo");
+            System.IO.File.WriteAllText(path, json);
+            Console.WriteLine("Writing file: " + path);
+        }
+
+        private void SaveData(Meting meting)
+        {
+            _data.Add(meting);
+        }
+
+        private void ReadFile()
         {
             string path;
             OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Ergometer files(*.ergo) | *.ergo | All files(*.*) | *.*";
             if (file.ShowDialog() == DialogResult.OK)
             {
                 path = file.FileName;
-                readedFile = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Meting>>(System.IO.File.ReadAllText(path));
-                richTextBox1.Text = readedFile.ElementAt(i).ToString();
+                readFile = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Meting>>(System.IO.File.ReadAllText(path));
+                richTextBox1.Text = readFile.ElementAt(i).ToString();
             }
             else
             {
-                readedFile = null;
+                readFile = null;
             }
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            readFile();
-            if (readedFile != null)
-            {
-                button3.Enabled = true;
-                button2.Enabled = true;
-            }
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (i > 0)
-            { i--;
-              button3.Enabled = true;
-            }
-            if (i == 0)
-            {
-                button2.Enabled = false;
-            }
-            richTextBox1.Text = readedFile.ElementAt(i).ToString();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (i < (readedFile.Count - 1))
-            { i++;
-              button2.Enabled = true;
-            }
-            if (i == (readedFile.Count - 1))
-            {
-                button3.Enabled = false;
-            }
-            richTextBox1.Text = readedFile.ElementAt(i).ToString();
         }
     }
 }

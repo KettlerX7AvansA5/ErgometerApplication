@@ -43,27 +43,28 @@ namespace ErgometerApplication
             this.timeButton = new System.Windows.Forms.Button();
             this.energyButton = new System.Windows.Forms.Button();
             this.distanceButton = new System.Windows.Forms.Button();
-            this.saveTimer = new System.Windows.Forms.Timer(this.components);
             this.writeTimer = new System.Windows.Forms.Timer(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.metingNextButton = new System.Windows.Forms.Button();
+            this.metingBackButton = new System.Windows.Forms.Button();
+            this.readButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(13, 42);
+            this.richTextBox1.Location = new System.Drawing.Point(10, 34);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(203, 243);
+            this.richTextBox1.Size = new System.Drawing.Size(153, 198);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(115, 291);
+            this.connectButton.Location = new System.Drawing.Point(86, 236);
+            this.connectButton.Margin = new System.Windows.Forms.Padding(2);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(101, 26);
+            this.connectButton.Size = new System.Drawing.Size(76, 21);
             this.connectButton.TabIndex = 1;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -73,21 +74,21 @@ namespace ErgometerApplication
             // 
             this.ComPortBox.FormattingEnabled = true;
             this.ComPortBox.Items.AddRange(new object[] {
-            "CNCA0",
-            "CNCB0",
-            "COM3",
-            "COM4"});
-            this.ComPortBox.Location = new System.Drawing.Point(12, 291);
+            "COM8",
+            "COM9"});
+            this.ComPortBox.Location = new System.Drawing.Point(9, 236);
+            this.ComPortBox.Margin = new System.Windows.Forms.Padding(2);
             this.ComPortBox.Name = "ComPortBox";
-            this.ComPortBox.Size = new System.Drawing.Size(97, 24);
+            this.ComPortBox.Size = new System.Drawing.Size(74, 21);
             this.ComPortBox.TabIndex = 11;
             // 
             // statusButton
             // 
             this.statusButton.Enabled = false;
-            this.statusButton.Location = new System.Drawing.Point(127, 12);
+            this.statusButton.Location = new System.Drawing.Point(95, 10);
+            this.statusButton.Margin = new System.Windows.Forms.Padding(2);
             this.statusButton.Name = "statusButton";
-            this.statusButton.Size = new System.Drawing.Size(89, 26);
+            this.statusButton.Size = new System.Drawing.Size(67, 21);
             this.statusButton.TabIndex = 3;
             this.statusButton.Text = "Status";
             this.statusButton.UseVisualStyleBackColor = true;
@@ -96,9 +97,10 @@ namespace ErgometerApplication
             // resetButton
             // 
             this.resetButton.Enabled = false;
-            this.resetButton.Location = new System.Drawing.Point(12, 12);
+            this.resetButton.Location = new System.Drawing.Point(9, 10);
+            this.resetButton.Margin = new System.Windows.Forms.Padding(2);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(97, 26);
+            this.resetButton.Size = new System.Drawing.Size(73, 21);
             this.resetButton.TabIndex = 4;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
@@ -113,9 +115,10 @@ namespace ErgometerApplication
             // 
             this.timerStatus.AutoSize = true;
             this.timerStatus.Enabled = false;
-            this.timerStatus.Location = new System.Drawing.Point(223, 12);
+            this.timerStatus.Location = new System.Drawing.Point(167, 10);
+            this.timerStatus.Margin = new System.Windows.Forms.Padding(2);
             this.timerStatus.Name = "timerStatus";
-            this.timerStatus.Size = new System.Drawing.Size(113, 21);
+            this.timerStatus.Size = new System.Drawing.Size(88, 17);
             this.timerStatus.TabIndex = 5;
             this.timerStatus.Text = "Auto Refresh";
             this.timerStatus.UseVisualStyleBackColor = true;
@@ -124,17 +127,19 @@ namespace ErgometerApplication
             // inputTextBox
             // 
             this.inputTextBox.Enabled = false;
-            this.inputTextBox.Location = new System.Drawing.Point(223, 42);
+            this.inputTextBox.Location = new System.Drawing.Point(167, 34);
+            this.inputTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(113, 22);
+            this.inputTextBox.Size = new System.Drawing.Size(86, 20);
             this.inputTextBox.TabIndex = 6;
             // 
             // powerButton
             // 
             this.powerButton.Enabled = false;
-            this.powerButton.Location = new System.Drawing.Point(223, 134);
+            this.powerButton.Location = new System.Drawing.Point(167, 109);
+            this.powerButton.Margin = new System.Windows.Forms.Padding(2);
             this.powerButton.Name = "powerButton";
-            this.powerButton.Size = new System.Drawing.Size(113, 26);
+            this.powerButton.Size = new System.Drawing.Size(85, 21);
             this.powerButton.TabIndex = 7;
             this.powerButton.Text = "Set Power";
             this.powerButton.UseVisualStyleBackColor = true;
@@ -143,9 +148,10 @@ namespace ErgometerApplication
             // timeButton
             // 
             this.timeButton.Enabled = false;
-            this.timeButton.Location = new System.Drawing.Point(223, 70);
+            this.timeButton.Location = new System.Drawing.Point(167, 57);
+            this.timeButton.Margin = new System.Windows.Forms.Padding(2);
             this.timeButton.Name = "timeButton";
-            this.timeButton.Size = new System.Drawing.Size(113, 26);
+            this.timeButton.Size = new System.Drawing.Size(85, 21);
             this.timeButton.TabIndex = 8;
             this.timeButton.Text = "Set Time";
             this.timeButton.UseVisualStyleBackColor = true;
@@ -154,9 +160,10 @@ namespace ErgometerApplication
             // energyButton
             // 
             this.energyButton.Enabled = false;
-            this.energyButton.Location = new System.Drawing.Point(223, 166);
+            this.energyButton.Location = new System.Drawing.Point(167, 135);
+            this.energyButton.Margin = new System.Windows.Forms.Padding(2);
             this.energyButton.Name = "energyButton";
-            this.energyButton.Size = new System.Drawing.Size(113, 26);
+            this.energyButton.Size = new System.Drawing.Size(85, 21);
             this.energyButton.TabIndex = 9;
             this.energyButton.Text = "Set Energy";
             this.energyButton.UseVisualStyleBackColor = true;
@@ -165,54 +172,63 @@ namespace ErgometerApplication
             // distanceButton
             // 
             this.distanceButton.Enabled = false;
-            this.distanceButton.Location = new System.Drawing.Point(223, 102);
+            this.distanceButton.Location = new System.Drawing.Point(167, 83);
+            this.distanceButton.Margin = new System.Windows.Forms.Padding(2);
             this.distanceButton.Name = "distanceButton";
-            this.distanceButton.Size = new System.Drawing.Size(113, 26);
+            this.distanceButton.Size = new System.Drawing.Size(85, 21);
             this.distanceButton.TabIndex = 10;
             this.distanceButton.Text = "Set Distance";
             this.distanceButton.UseVisualStyleBackColor = true;
             this.distanceButton.Click += new System.EventHandler(this.distanceButton_Click);
             // 
-            // button3
+            // writeTimer
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(224, 268);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(110, 27);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "next";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.writeTimer.Interval = 10000;
+            this.writeTimer.Tick += new System.EventHandler(this.writeTimer_Tick);
             // 
-            // button2
+            // metingNextButton
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(223, 233);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 29);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "back";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.metingNextButton.Enabled = false;
+            this.metingNextButton.Location = new System.Drawing.Point(167, 235);
+            this.metingNextButton.Margin = new System.Windows.Forms.Padding(2);
+            this.metingNextButton.Name = "metingNextButton";
+            this.metingNextButton.Size = new System.Drawing.Size(85, 21);
+            this.metingNextButton.TabIndex = 16;
+            this.metingNextButton.Text = "Next ->";
+            this.metingNextButton.UseVisualStyleBackColor = true;
+            this.metingNextButton.Click += new System.EventHandler(this.metingNextButton_Click);
             // 
-            // button1
+            // metingBackButton
             // 
-            this.button1.Location = new System.Drawing.Point(221, 198);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 29);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Read File";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.metingBackButton.Enabled = false;
+            this.metingBackButton.Location = new System.Drawing.Point(167, 210);
+            this.metingBackButton.Margin = new System.Windows.Forms.Padding(2);
+            this.metingBackButton.Name = "metingBackButton";
+            this.metingBackButton.Size = new System.Drawing.Size(85, 21);
+            this.metingBackButton.TabIndex = 15;
+            this.metingBackButton.Text = "<- Back";
+            this.metingBackButton.UseVisualStyleBackColor = true;
+            this.metingBackButton.Click += new System.EventHandler(this.metingBackButton_Click);
+            // 
+            // readButton
+            // 
+            this.readButton.Location = new System.Drawing.Point(167, 185);
+            this.readButton.Margin = new System.Windows.Forms.Padding(2);
+            this.readButton.Name = "readButton";
+            this.readButton.Size = new System.Drawing.Size(85, 21);
+            this.readButton.TabIndex = 17;
+            this.readButton.Text = "Read File";
+            this.readButton.UseVisualStyleBackColor = true;
+            this.readButton.Click += new System.EventHandler(this.readButton_Click);
             // 
             // Ergometer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(351, 328);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(265, 273);
+            this.Controls.Add(this.readButton);
+            this.Controls.Add(this.metingNextButton);
+            this.Controls.Add(this.metingBackButton);
             this.Controls.Add(this.distanceButton);
             this.Controls.Add(this.energyButton);
             this.Controls.Add(this.timeButton);
@@ -224,8 +240,9 @@ namespace ErgometerApplication
             this.Controls.Add(this.ComPortBox);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.richTextBox1);
-            this.MaximumSize = new System.Drawing.Size(369, 375);
-            this.MinimumSize = new System.Drawing.Size(369, 375);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximumSize = new System.Drawing.Size(281, 312);
+            this.MinimumSize = new System.Drawing.Size(281, 312);
             this.Name = "Ergometer";
             this.Text = "Ergometer";
             this.ResumeLayout(false);
@@ -247,10 +264,9 @@ namespace ErgometerApplication
         private System.Windows.Forms.Button timeButton;
         private System.Windows.Forms.Button energyButton;
         private System.Windows.Forms.Button distanceButton;
-        private System.Windows.Forms.Timer saveTimer;
         private System.Windows.Forms.Timer writeTimer;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button metingNextButton;
+        private System.Windows.Forms.Button metingBackButton;
+        private System.Windows.Forms.Button readButton;
     }
 }
