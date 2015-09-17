@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace ErgometerApplication
 {
@@ -54,7 +55,9 @@ namespace ErgometerApplication
                     Console.WriteLine(response);
 
                     Meting test = FormatHelper.Status(response);
+
                     Write = test;
+
                     string test2 = test.ToString();
                     richTextBox1.Text = test2;
                 }
