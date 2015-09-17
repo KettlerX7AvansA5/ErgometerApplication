@@ -15,8 +15,10 @@ namespace ErgometerApplication
     public partial class Ergometer : Form
     {
         private ComPort comPort;
-        private Meting schrijfweg;
+        private Meting Write;
         private List<Meting> _data;
+        private int i = 0;
+        List<Meting> readedFile = new List<Meting>();
         public Ergometer()
         {
             InitializeComponent();
@@ -52,6 +54,7 @@ namespace ErgometerApplication
                     Console.WriteLine(response);
 
                     Meting test = FormatHelper.Status(response);
+                    Write = test;
                     string test2 = test.ToString();
                     richTextBox1.Text = test2;
                 }
@@ -169,14 +172,13 @@ namespace ErgometerApplication
 
         private void saveTimer_Tick(object sender, EventArgs e)
         {
-            saveData(schrijfweg);
+            saveData(Write);
         }
 
         private void writeFile()
         {
 
-            string json = JsonConvert.SerializeObject(_data.ToArray());
-
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(@Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//path.ergo", json);
         }
         private void saveData(Meting meting)
@@ -184,14 +186,14 @@ namespace ErgometerApplication
             _data = new List<Meting>();
             _data.Add(new Meting()
             {
-                HeartBeat = schrijfweg.HeartBeat,
-                RPM = schrijfweg.RPM,
-                Speed = schrijfweg.Speed,
-                Distance = schrijfweg.Distance,
-                Power = schrijfweg.Power,
-                Energy = schrijfweg.Energy,
-                Seconds = schrijfweg.Seconds,
-                ActualPower = schrijfweg.ActualPower
+                HeartBeat = Write.HeartBeat,
+                RPM = Write.RPM,
+                Speed = Write.Speed,
+                Distance = Write.Distance,
+                Power = Write.Power,
+                Energy = Write.Energy,
+                Seconds = Write.Seconds,
+                ActualPower = Write.ActualPower
             });
         }
 
@@ -200,9 +202,58 @@ namespace ErgometerApplication
             writeFile();
         }
 
-        private void Ergometer_Load(object sender, EventArgs e)
+        private void readFile()
         {
+            string path;
+            OpenFileDialog file = new OpenFileDialog();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                path = file.FileName;
+                readedFile = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Meting>>(System.IO.File.ReadAllText(path));
+                richTextBox1.Text = readedFile.ElementAt(i).ToString();
+            }
+            else
+            {
+                readedFile = null;
+            }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            readFile();
+            if (readedFile != null)
+            {
+                button3.Enabled = true;
+                button2.Enabled = true;
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (i > 0)
+            { i--;
+              button3.Enabled = true;
+            }
+            if (i == 0)
+            {
+                button2.Enabled = false;
+            }
+            richTextBox1.Text = readedFile.ElementAt(i).ToString();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (i < (readedFile.Count - 1))
+            { i++;
+              button2.Enabled = true;
+            }
+            if (i == (readedFile.Count - 1))
+            {
+                button3.Enabled = false;
+            }
+            richTextBox1.Text = readedFile.ElementAt(i).ToString();
         }
     }
 }
