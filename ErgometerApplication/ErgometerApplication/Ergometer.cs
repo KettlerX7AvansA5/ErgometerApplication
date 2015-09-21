@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
+using ErgometerLibrary;
 
 namespace ErgometerApplication
 {
@@ -55,7 +56,7 @@ namespace ErgometerApplication
                     string response = comPort.Read();
                     Console.WriteLine(response);
 
-                    Meting m = FormatHelper.Status(response);
+                    Meting m = Meting.Parse(response);
                     SaveData(m);
                     richTextBox1.Text = m.ToString();
                 }
@@ -90,7 +91,7 @@ namespace ErgometerApplication
             comPort.Write("ST");
             string response = comPort.Read();
             Console.WriteLine(response);
-            Meting m = FormatHelper.Status(response);
+            Meting m = Meting.Parse(response);
             SaveData(m);
             richTextBox1.Text = m.ToString();
 
@@ -113,7 +114,7 @@ namespace ErgometerApplication
                 comPort.Write("ST");
                 string response = comPort.Read();
                 Console.WriteLine(response);
-                Meting m = FormatHelper.Status(response);
+                Meting m = Meting.Parse(response);
                 SaveData(m);
                 richTextBox1.Text = m.ToString();
             }
