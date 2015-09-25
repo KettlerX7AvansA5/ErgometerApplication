@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.IO;
 using ErgometerLibrary;
 using System.Net.Sockets;
+using System.Net;
 
 namespace ErgometerApplication
 {
@@ -24,6 +25,7 @@ namespace ErgometerApplication
         int sessionID;
         NetCommand command;
         List<Meting> readFile = new List<Meting>();
+        System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
         public Ergometer()
         {
             InitializeComponent();
@@ -61,7 +63,7 @@ namespace ErgometerApplication
 
                     Meting m = Meting.Parse(response);
                     SaveData(m);
-                    richTextBox1.Text = m.ToString();
+                   // richTextBox1.Text = m.ToString();
                 }
             }
             else
@@ -85,6 +87,12 @@ namespace ErgometerApplication
 
                 }
             }
+            IPAddress ipAddress; //= IPAddress.Parse("127.0.0.1");
+
+            bool ipIsOk = IPAddress.TryParse("127.0.0.1", out ipAddress); //GetIp()
+            if (!ipIsOk) { Console.WriteLine("ip adres kan niet geparsed worden."); Environment.Exit(1); }
+            client.Connect("127.0.0.1", 8888);
+            WriteServer("5»ses?");
             sessionID = int.Parse(ReadServer());
         }
 
@@ -257,7 +265,7 @@ namespace ErgometerApplication
                 readFile = null;
             }
         }
-        System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
+        
         private String ReadServer()
         {
 
