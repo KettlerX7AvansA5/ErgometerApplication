@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using ErgometerLibrary;
+using System.Net.Sockets;
 
 namespace ErgometerApplication
 {
@@ -20,6 +21,8 @@ namespace ErgometerApplication
         private ComPort comPort;
         private List<Meting> _data;
         private int i = 0;
+        int sessionID;
+        NetCommand command;
         List<Meting> readFile = new List<Meting>();
         public Ergometer()
         {
@@ -82,25 +85,7 @@ namespace ErgometerApplication
 
                 }
             }
-            Thread threadRead = new Thread(HandleServerRead);
-            threadRead.Start(client);
-            Thread threadWrite = new Thread(HandleServerRead);
-            threadWrite.Start(client);
-        }
-
-        private void HandleServerRead()
-        {
-            while (connectButton.Text == "Disconnect")
-            {
-                
-            }
-        }
-        private void HandleServerWrite()
-        {
-            while (connectButton.Text == "Disconnect")
-            {
-                
-            }
+            sessionID = int.Parse(ReadServer());
         }
 
         private void statusButton_Click(object sender, EventArgs e)
@@ -110,8 +95,9 @@ namespace ErgometerApplication
             Console.WriteLine(response);
             Meting m = Meting.Parse(response);
             SaveData(m);
+            command = new NetCommand(m, sessionID);
+            WriteServer(command.ToString());
             richTextBox1.Text = m.ToString();
-
             WriteFile();
         }
 
@@ -133,6 +119,8 @@ namespace ErgometerApplication
                 Console.WriteLine(response);
                 Meting m = Meting.Parse(response);
                 SaveData(m);
+                command = new NetCommand(m, sessionID);
+                WriteServer(command.ToString());
                 richTextBox1.Text = m.ToString();
             }
         }
