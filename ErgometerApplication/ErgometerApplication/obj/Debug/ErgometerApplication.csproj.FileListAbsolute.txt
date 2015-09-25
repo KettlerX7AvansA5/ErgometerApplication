@@ -17,4 +17,5 @@ C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\Ergom
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Ergometer.resources
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Properties.Resources.resources
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csproj.GenerateResource.Cache
-
+C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerLibrary.dll
+C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerLibrary.pdb

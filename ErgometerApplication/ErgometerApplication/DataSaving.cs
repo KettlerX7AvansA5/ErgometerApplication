@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ErgometerLibrary;
 namespace ErgometerApplication
 {
     class DataSaving
     {
+        List<Meting> local_data = null;
         private List<Meting> ReadFile()
         {
             string path;
@@ -28,10 +29,9 @@ namespace ErgometerApplication
         }
         private List<Meting> SaveData(Meting meting, List<Meting> _data)
         {
-            List<Meting> local_data;
+            List<Meting> local_data = _data;
             local_data.Add(meting);
-
-            return _data;
+            return local_data;
         }
         private void WriteFile(List<Meting> _data)
         {
@@ -40,6 +40,7 @@ namespace ErgometerApplication
             System.IO.File.WriteAllText(path, json);
             Console.WriteLine("Writing file: " + path);
         }
+       
 
     }
 }

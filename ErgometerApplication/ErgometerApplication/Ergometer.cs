@@ -82,8 +82,25 @@ namespace ErgometerApplication
 
                 }
             }
+            Thread threadRead = new Thread(HandleServerRead);
+            threadRead.Start(client);
+            Thread threadWrite = new Thread(HandleServerRead);
+            threadWrite.Start(client);
+        }
 
-
+        private void HandleServerRead()
+        {
+            while (connectButton.Text == "Disconnect")
+            {
+                
+            }
+        }
+        private void HandleServerWrite()
+        {
+            while (connectButton.Text == "Disconnect")
+            {
+                
+            }
         }
 
         private void statusButton_Click(object sender, EventArgs e)
@@ -251,6 +268,21 @@ namespace ErgometerApplication
             {
                 readFile = null;
             }
+        }
+        System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
+        private String ReadServer()
+        {
+
+            StreamReader reader = new StreamReader(client.GetStream(), Encoding.ASCII);
+            String b = reader.ReadLine();
+            return b;
+        }
+        private void WriteServer(String Send)
+        {
+
+            StreamWriter stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
+            stream.WriteLine(Send);
+
         }
     }
 }
