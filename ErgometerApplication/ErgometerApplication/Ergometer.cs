@@ -107,8 +107,10 @@ namespace ErgometerApplication
             comPort.Write("ST");
             string response = comPort.Read();
             Console.WriteLine(response);
-            Meting m = Meting.Parse(response);
+            Meting m = Meting.Parse(response, '\t');
+            Console.WriteLine(m);
             SaveData(m);
+            communicator.data.Add(m);
             command = new NetCommand(m, communicator.sessionId);
             communicator.writer.WriteLine(command.ToString());
             richTextBox1.Text = m.ToString();
@@ -160,6 +162,7 @@ namespace ErgometerApplication
                 richTextBox1.Text = m.ToString();
                 command = new NetCommand(communicator.data[0], communicator.sessionId);
                 communicator.writer.WriteLine(command.ToString());
+                communicator.writer.Flush();
             }
         }
 
