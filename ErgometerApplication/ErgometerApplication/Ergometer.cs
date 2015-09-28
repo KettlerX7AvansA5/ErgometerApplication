@@ -115,20 +115,11 @@ namespace ErgometerApplication
             WriteFile();
         }
 
-        static void WriteCommand(object obj, ElapsedEventArgs e)
-        {
-            ServerCommunicator communicator = obj as ServerCommunicator;
-            NetCommand command = new NetCommand(communicator.data[0], 1);
-            communicator.writer.WriteLine(command.ToString());
-        }
-
         static void ServerCommunication(object obj)
         {
             ServerCommunicator communicator = obj as ServerCommunicator;
             communicator.reader = new StreamReader(communicator.client.GetStream(), Encoding.Unicode);
             communicator.writer = new StreamWriter(communicator.client.GetStream(), Encoding.Unicode);
-            Timer dataTimer = new Timer(1000/2);
-            dataTimer.Elapsed += WriteCommand;
             int sessionId = 0;
             communicator.writer.WriteLine("5»ses?");
             communicator.writer.Flush();
@@ -137,12 +128,12 @@ namespace ErgometerApplication
             {
                 session = session.Remove(0, 5);
                 sessionId = int.Parse(session);
+                communicator.sessionId = sessionId;
             }
             NetCommand command = new NetCommand("name", false, sessionId);
             communicator.writer.WriteLine(command.ToString());
             communicator.writer.Flush();
             communicator.reader.ReadLine();
-            dataTimer.Start();
         }
 
         private void resetButton_Click(object sender, EventArgs e)
@@ -163,9 +154,12 @@ namespace ErgometerApplication
                 Console.WriteLine(response);
                 Meting m = Meting.Parse(response);
                 SaveData(m);
+                communicator.data.Add(m);
                 command = new NetCommand(m, communicator.sessionId);
                 communicator.writer.WriteLine(command.ToString());
                 richTextBox1.Text = m.ToString();
+                command = new NetCommand(communicator.data[0], communicator.sessionId);
+                communicator.writer.WriteLine(command.ToString());
             }
         }
 
