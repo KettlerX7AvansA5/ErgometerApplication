@@ -14,6 +14,9 @@ using System.IO;
 using ErgometerLibrary;
 using System.Net.Sockets;
 using System.Net;
+using System.Timers;
+using ErgometerLibrary;
+using Timer = System.Timers.Timer;
 
 namespace ErgometerApplication
 {
@@ -22,15 +25,15 @@ namespace ErgometerApplication
         private ComPort comPort;
         private List<Meting> _data;
         private int i = 0;
-        int sessionID;
         NetCommand command;
+        private ServerCommunicator communicator = new ServerCommunicator();
         List<Meting> readFile = new List<Meting>();
-        System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
         public Ergometer()
         {
             InitializeComponent();
             comPort = new ComPort();
             _data = new List<Meting>();
+            communicator.data = _data;
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -91,9 +94,12 @@ namespace ErgometerApplication
 
             bool ipIsOk = IPAddress.TryParse("127.0.0.1", out ipAddress); //GetIp()
             if (!ipIsOk) { Console.WriteLine("ip adres kan niet geparsed worden."); Environment.Exit(1); }
-            client.Connect("127.0.0.1", 8888);
-            WriteServer("5»ses?");
-            sessionID = int.Parse(ReadServer());
+            communicator.client = new TcpClient();
+            communicator.client.Connect("127.0.0.1", 8888);
+            communicator.reader = new StreamReader(communicator.client.GetStream(), Encoding.Unicode);
+            communicator.writer = new StreamWriter(communicator.client.GetStream(), Encoding.Unicode);
+            Thread thread = new Thread(ServerCommunication);
+            thread.Start(communicator);
         }
 
         private void statusButton_Click(object sender, EventArgs e)
@@ -103,10 +109,41 @@ namespace ErgometerApplication
             Console.WriteLine(response);
             Meting m = Meting.Parse(response);
             SaveData(m);
-            command = new NetCommand(m, sessionID);
-            WriteServer(command.ToString());
+            command = new NetCommand(m, communicator.sessionId);
+            communicator.writer.WriteLine(command.ToString());
             richTextBox1.Text = m.ToString();
             WriteFile();
+        }
+
+        static void WriteCommand(object obj, ElapsedEventArgs e)
+        {
+            ServerCommunicator communicator = obj as ServerCommunicator;
+            NetCommand command = new NetCommand(communicator.data[0], 1);
+            communicator.writer.WriteLine(command.ToString());
+        }
+
+        static void ServerCommunication(object obj)
+        {
+            TcpClient client = obj as TcpClient;
+            StreamReader reader = new StreamReader(client.GetStream(), Encoding.Unicode);
+            StreamWriter writer = new StreamWriter(client.GetStream(), Encoding.Unicode);
+            Timer dataTimer = new Timer(1000/2);
+            dataTimer.Elapsed += WriteCommand;
+            int sessionId = 0;
+            writer.WriteLine("5»ses?");
+            writer.Flush();
+            string session = reader.ReadLine();
+            if (session != null)
+            {
+                session.Remove(0, 5);
+                sessionId = int.Parse(session);
+            }
+            NetCommand command = new NetCommand("name", false, sessionId);
+            writer.WriteLine(command.ToString());
+            writer.Flush();
+            reader.ReadLine();
+            dataTimer.Start();
+            
         }
 
         private void resetButton_Click(object sender, EventArgs e)
@@ -127,8 +164,8 @@ namespace ErgometerApplication
                 Console.WriteLine(response);
                 Meting m = Meting.Parse(response);
                 SaveData(m);
-                command = new NetCommand(m, sessionID);
-                WriteServer(command.ToString());
+                command = new NetCommand(m, communicator.sessionId);
+                communicator.writer.WriteLine(command.ToString());
                 richTextBox1.Text = m.ToString();
             }
         }
@@ -190,8 +227,6 @@ namespace ErgometerApplication
                 writeTimer.Stop();
             }
         }
-
-        
 
         private void readButton_Click(object sender, EventArgs e)
         {
@@ -264,21 +299,6 @@ namespace ErgometerApplication
             {
                 readFile = null;
             }
-        }
-        
-        private String ReadServer()
-        {
-
-            StreamReader reader = new StreamReader(client.GetStream(), Encoding.ASCII);
-            String b = reader.ReadLine();
-            return b;
-        }
-        private void WriteServer(String Send)
-        {
-
-            StreamWriter stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            stream.WriteLine(Send);
-
         }
     }
 }
