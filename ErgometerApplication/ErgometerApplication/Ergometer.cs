@@ -124,26 +124,25 @@ namespace ErgometerApplication
 
         static void ServerCommunication(object obj)
         {
-            TcpClient client = obj as TcpClient;
-            StreamReader reader = new StreamReader(client.GetStream(), Encoding.Unicode);
-            StreamWriter writer = new StreamWriter(client.GetStream(), Encoding.Unicode);
+            ServerCommunicator communicator = obj as ServerCommunicator;
+            communicator.reader = new StreamReader(communicator.client.GetStream(), Encoding.Unicode);
+            communicator.writer = new StreamWriter(communicator.client.GetStream(), Encoding.Unicode);
             Timer dataTimer = new Timer(1000/2);
             dataTimer.Elapsed += WriteCommand;
             int sessionId = 0;
-            writer.WriteLine("5»ses?");
-            writer.Flush();
-            string session = reader.ReadLine();
+            communicator.writer.WriteLine("5»ses?");
+            communicator.writer.Flush();
+            string session = communicator.reader.ReadLine();
             if (session != null)
             {
-                session.Remove(0, 5);
+                session = session.Remove(0, 5);
                 sessionId = int.Parse(session);
             }
             NetCommand command = new NetCommand("name", false, sessionId);
-            writer.WriteLine(command.ToString());
-            writer.Flush();
-            reader.ReadLine();
+            communicator.writer.WriteLine(command.ToString());
+            communicator.writer.Flush();
+            communicator.reader.ReadLine();
             dataTimer.Start();
-            
         }
 
         private void resetButton_Click(object sender, EventArgs e)
