@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServerCommunicator.cs" />
     <Compile Include="DataSaving.cs" />
     <Compile Include="Ergometer.cs">
       <SubType>Form</SubType>
