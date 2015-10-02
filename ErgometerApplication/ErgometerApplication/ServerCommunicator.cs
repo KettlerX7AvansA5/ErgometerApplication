@@ -12,8 +12,6 @@ namespace ErgometerApplication
     class ServerCommunicator
     {
         public TcpClient client { get; set; }
-        public StreamWriter writer { get; set; }
-        public StreamReader reader { get; set; }
         public int sessionId { get; set; }
         public List<Meting> data { get; set; } 
     }

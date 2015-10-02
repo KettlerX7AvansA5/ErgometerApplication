@@ -15,8 +15,6 @@ using ErgometerLibrary;
 using System.Net.Sockets;
 using System.Net;
 using System.Timers;
-using ErgometerLibrary;
-using Timer = System.Timers.Timer;
 
 namespace ErgometerApplication
 {
@@ -90,14 +88,8 @@ namespace ErgometerApplication
 
                 }
             }
-            IPAddress ipAddress; //= IPAddress.Parse("127.0.0.1");
-
-            bool ipIsOk = IPAddress.TryParse("127.0.0.1", out ipAddress); //GetIp()
-            if (!ipIsOk) { Console.WriteLine("ip adres kan niet geparsed worden."); Environment.Exit(1); }
             communicator.client = new TcpClient();
             communicator.client.Connect("127.0.0.1", 8888);
-            communicator.reader = new StreamReader(communicator.client.GetStream(), Encoding.Unicode);
-            communicator.writer = new StreamWriter(communicator.client.GetStream(), Encoding.Unicode);
             Thread thread = new Thread(ServerCommunication);
             thread.Start(communicator);
         }
@@ -112,7 +104,7 @@ namespace ErgometerApplication
             SaveData(m);
             communicator.data.Add(m);
             command = new NetCommand(m, communicator.sessionId);
-            communicator.writer.WriteLine(command.ToString());
+            NetHelper.SendNetCommand(communicator.client, command);
             richTextBox1.Text = m.ToString();
             WriteFile();
         }
@@ -120,22 +112,13 @@ namespace ErgometerApplication
         static void ServerCommunication(object obj)
         {
             ServerCommunicator communicator = obj as ServerCommunicator;
-            communicator.reader = new StreamReader(communicator.client.GetStream(), Encoding.Unicode);
-            communicator.writer = new StreamWriter(communicator.client.GetStream(), Encoding.Unicode);
-            int sessionId = 0;
-            communicator.writer.WriteLine("5»ses?");
-            communicator.writer.Flush();
-            string session = communicator.reader.ReadLine();
-            if (session != null)
-            {
-                session = session.Remove(0, 5);
-                sessionId = int.Parse(session);
-                communicator.sessionId = sessionId;
-            }
-            NetCommand command = new NetCommand("name", false, sessionId);
-            communicator.writer.WriteLine(command.ToString());
-            communicator.writer.Flush();
-            communicator.reader.ReadLine();
+
+            NetCommand net = NetHelper.ReadNetCommand(communicator.client);
+            if (net.Type == NetCommand.CommandType.SESSION)
+                communicator.sessionId = net.Session;
+
+            NetCommand command = new NetCommand("name", false, "pass", communicator.sessionId);
+            NetHelper.SendNetCommand(communicator.client, command);
         }
 
         private void resetButton_Click(object sender, EventArgs e)
@@ -158,11 +141,10 @@ namespace ErgometerApplication
                 SaveData(m);
                 communicator.data.Add(m);
                 command = new NetCommand(m, communicator.sessionId);
-                communicator.writer.WriteLine(command.ToString());
+                NetHelper.SendNetCommand(communicator.client, command);
                 richTextBox1.Text = m.ToString();
                 command = new NetCommand(communicator.data[0], communicator.sessionId);
-                communicator.writer.WriteLine(command.ToString());
-                communicator.writer.Flush();
+                NetHelper.SendNetCommand(communicator.client, command);
             }
         }
 
