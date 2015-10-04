@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ErgometerLibrary;
+//using ErgometerLibrary;
 
 namespace ErgometerApplication
 {
@@ -13,6 +13,6 @@ namespace ErgometerApplication
     {
         public TcpClient client { get; set; }
         public int sessionId { get; set; }
-        public List<Meting> data { get; set; } 
+//        public List<Meting> data { get; set; } 
     }
 }

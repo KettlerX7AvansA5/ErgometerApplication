@@ -17,7 +17,7 @@ namespace ErgometerApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Ergometer());
+            Application.Run(new ClientApplicatie());
         }
     }
 }

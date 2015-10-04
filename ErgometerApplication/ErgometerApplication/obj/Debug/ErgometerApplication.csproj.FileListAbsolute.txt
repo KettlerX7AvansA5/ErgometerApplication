@@ -19,3 +19,14 @@ C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\Ergom
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csproj.GenerateResource.Cache
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerLibrary.dll
 C:\Users\sander\Documents\GitHub\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerLibrary.pdb
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe.config
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.pdb
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.dll
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.xml
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csprojResolveAssemblyReference.cache
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Properties.Resources.resources
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csproj.GenerateResource.Cache
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.exe
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
+C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.ClientApplicatie.resources
