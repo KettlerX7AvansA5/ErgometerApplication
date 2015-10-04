@@ -30,3 +30,14 @@ C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\Ergom
 C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.exe
 C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
 C:\Users\startklaar\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.ClientApplicatie.resources
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe.config
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.exe
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.pdb
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.exe
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\ErgometerApplication.pdb
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.dll
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\bin\Debug\Newtonsoft.Json.xml
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csprojResolveAssemblyReference.cache
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.ClientApplicatie.resources
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.Properties.Resources.resources
+D:\Source\Repos\ErgometerApplication\ErgometerApplication\ErgometerApplication\obj\Debug\ErgometerApplication.csproj.GenerateResource.Cache

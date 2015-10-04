@@ -54,6 +54,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PanelClientChat.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanelClientContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanelClientDataView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanelLogin.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ServerCommunicator.cs" />
     <Compile Include="DataSaving.cs" />
     <Compile Include="ClientApplicatie.cs">
@@ -75,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -92,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flatbike.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

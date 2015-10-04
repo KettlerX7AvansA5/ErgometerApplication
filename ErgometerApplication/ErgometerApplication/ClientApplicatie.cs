@@ -278,5 +278,71 @@ namespace ErgometerApplication
         //        readFile = null;
         //    }
         //}
+
+        public void validateLogin(string username, string password)
+        {
+            if(username.Length >= 4)
+            {
+                if(password.Length == 0)
+                {
+                    panelLogin.lblVerification.Text = "Vul een wachtwoord in.";
+                    panelLogin.lblVerification.ForeColor = Color.Red;
+                    panelLogin.lblVerification.Visible = true;
+                }
+                if (password.Length > 0 && password.Length < 9)
+                {
+                    panelLogin.lblVerification.Text = "Vul een wachtwoord in van minimaal 8 karakters.";
+                    panelLogin.lblVerification.ForeColor = Color.Red;
+                    panelLogin.lblVerification.Visible = true;
+                }
+                if (password.Length >= 8)
+                {
+                    //password checken
+                    panelClientContainer.BringToFront();
+                    this.labelUsername.Text = panelLogin.textBoxUsername.Text;
+                    panelTopBar.Visible = true;
+                }
+            }
+            else
+            {
+                panelLogin.lblVerification.Text = "Vul een gebruikersnaam in van minimaal 4 karakters.";
+                panelLogin.lblVerification.ForeColor = Color.Red;
+                panelLogin.lblVerification.Visible = true;
+            }
+        }
+
+        private void ClientApplicatie_Resize(object sender, System.EventArgs e)
+        {
+            Control control = (Control)sender;
+            if(control.Size.Width < 980)
+            {
+                panelFullscreenView.Visible = false;
+            }
+            if (control.Size.Width >= 980 && control.Size.Width < 1368)
+            {
+                panelFullscreenView.Visible = true;
+                panelFullscreenView.Width = 250;
+            }
+            if (control.Size.Width >= 1368)
+            {
+                panelFullscreenView.Visible = true;
+                panelFullscreenView.Width = 500;
+            }
+
+        }
+
+        public void sessionLogout()
+        {
+
+        }
+
+        private void buttonLogOff_Click(object sender, EventArgs e)
+        {
+            panelLogin.BringToFront();
+            panelTopBar.Visible = false;
+            sessionLogout();
+        }
+
+        
     }
 }
