@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace ErgometerApplication
 {
-    public class DataPanel : Panel
+    public class PanelClientData : Panel
     {
         public Label labelMetingCurrentValue;
         public ProgressBar progressBarMeting;
         public Label metingName;
 
-        public DataPanel(string name) : base()
+        public PanelClientData(string name) : base()
         {
             this.metingName = new System.Windows.Forms.Label();
             this.progressBarMeting = new System.Windows.Forms.ProgressBar();

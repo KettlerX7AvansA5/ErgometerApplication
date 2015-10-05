@@ -44,13 +44,13 @@ namespace ErgometerApplication
             this.labelUsername = new System.Windows.Forms.Label();
             this.labelHallo = new System.Windows.Forms.Label();
 
-            this.heartBeat = new DataPanel("Hartslag");
-            this.RPM = new DataPanel("RPM");
-            this.speed = new DataPanel("Snelheid");
-            this.distance = new DataPanel("Afstand (km)");
-            this.power = new DataPanel("Weerstand");
-            this.energy = new DataPanel("Energie");
-            this.actualpower = new DataPanel("Absolute Weerstand");
+            this.heartBeat = new PanelClientData("Hartslag");
+            this.RPM = new PanelClientData("RPM");
+            this.speed = new PanelClientData("Snelheid");
+            this.distance = new PanelClientData("Afstand (km)");
+            this.power = new PanelClientData("Weerstand");
+            this.energy = new PanelClientData("Energie");
+            this.actualpower = new PanelClientData("Absolute Weerstand");
 
             this.panelClientContainer.SuspendLayout();
             this.panelTopBar.SuspendLayout();
@@ -190,7 +190,7 @@ namespace ErgometerApplication
         private System.Windows.Forms.Button buttonLogOff;
         private System.Windows.Forms.Label labelUsername;
         private System.Windows.Forms.Label labelHallo;
-        public DataPanel heartBeat, RPM, speed, distance, power, energy, seconds, actualpower;
+        public PanelClientData heartBeat, RPM, speed, distance, power, energy, seconds, actualpower;
     }
 
     

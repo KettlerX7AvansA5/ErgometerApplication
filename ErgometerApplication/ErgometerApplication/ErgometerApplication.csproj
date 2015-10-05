@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataPanel.cs">
+    <Compile Include="PanelClientData.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PanelClientChat.cs">

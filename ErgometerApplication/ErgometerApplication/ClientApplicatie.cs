@@ -11,25 +11,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
-//using ErgometerLibrary;
 using System.Net.Sockets;
 using System.Net;
 using System.Timers;
+using ErgometerLibrary;
 
 namespace ErgometerApplication
 {
     public partial class ClientApplicatie : Form
     {
-        //private ComPort comPort;
+        private ComPort comPort;
+        private TcpClient doctor;
         //private List<Meting> _data;
         //private int i = 0;
         //NetCommand command;
         //private ServerCommunicator communicator = new ServerCommunicator();
         //List<Meting> readFile = new List<Meting>();
+
         public ClientApplicatie()
         {
               InitializeComponent();
-        //    comPort = new ComPort();
+              comPort = new ComPort();
+
+              doctor = new TcpClient("127.0.0.1", 8888);
+
         //    _data = new List<Meting>();
         //    communicator.data = _data;
         }
