@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using System.Windows.Forms;
 
 namespace ErgometerApplication
 {
@@ -42,6 +43,15 @@ namespace ErgometerApplication
             this.buttonLogOff = new System.Windows.Forms.Button();
             this.labelUsername = new System.Windows.Forms.Label();
             this.labelHallo = new System.Windows.Forms.Label();
+
+            this.heartBeat = new DataPanel("Hartslag");
+            this.RPM = new DataPanel("RPM");
+            this.speed = new DataPanel("Snelheid");
+            this.distance = new DataPanel("Afstand (km)");
+            this.power = new DataPanel("Weerstand");
+            this.energy = new DataPanel("Energie");
+            this.actualpower = new DataPanel("Absolute Weerstand");
+
             this.panelClientContainer.SuspendLayout();
             this.panelTopBar.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +83,14 @@ namespace ErgometerApplication
             this.panelDataViewLeft.Size = new System.Drawing.Size(18, 600);
             this.panelDataViewLeft.TabIndex = 3;
             this.panelDataViewLeft.BackColor = System.Drawing.Color.Gray;
+            this.panelDataViewLeft.Controls.Add(heartBeat);
+            this.panelDataViewLeft.Controls.Add(RPM);
+            this.panelDataViewLeft.Controls.Add(speed);
+            this.panelDataViewLeft.Controls.Add(distance);
+            this.panelDataViewLeft.Controls.Add(power);
+            this.panelDataViewLeft.Controls.Add(energy);
+            this.panelDataViewLeft.Controls.Add(actualpower);
+
             // 
             // panelGraphView
             // 
@@ -172,5 +190,8 @@ namespace ErgometerApplication
         private System.Windows.Forms.Button buttonLogOff;
         private System.Windows.Forms.Label labelUsername;
         private System.Windows.Forms.Label labelHallo;
+        public DataPanel heartBeat, RPM, speed, distance, power, energy, seconds, actualpower;
     }
+
+    
 }
