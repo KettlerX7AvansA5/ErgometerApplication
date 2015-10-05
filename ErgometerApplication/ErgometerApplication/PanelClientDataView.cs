@@ -7,17 +7,17 @@ using System.Windows.Forms;
 
 namespace ErgometerApplication
 {
-    public class PanelClientDataView:Panel
+    public class PanelGraphView:Panel
     {
-        public PanelClientDataView() : base()
+        public PanelGraphView() : base()
         {
             // 
-            // panelClientDataView
+            // panelGraphView
             // 
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Location = new System.Drawing.Point(400, 0);
-            this.Name = "panelClientDataView";
+            this.Name = "panelGraphView";
             this.Size = new System.Drawing.Size(400, 600);
             this.TabIndex = 1;
         }

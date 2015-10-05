@@ -316,17 +316,22 @@ namespace ErgometerApplication
             Control control = (Control)sender;
             if(control.Size.Width < 980)
             {
-                panelFullscreenView.Visible = false;
+                panelGraphView.Visible = false;
+                panelClientChat.Width = 400;
+                panelDataViewLeft.Dock = DockStyle.Fill;
             }
             if (control.Size.Width >= 980 && control.Size.Width < 1368)
             {
-                panelFullscreenView.Visible = true;
-                panelFullscreenView.Width = 250;
+                panelGraphView.Visible = true;
+                panelDataViewLeft.Width = 250;
+                panelClientChat.Width = 300;
+                panelDataViewLeft.Dock = DockStyle.Left;
             }
             if (control.Size.Width >= 1368)
             {
-                panelFullscreenView.Visible = true;
-                panelFullscreenView.Width = 500;
+                panelGraphView.Visible = true;
+                panelDataViewLeft.Width = 400;
+                panelDataViewLeft.Dock = DockStyle.Left;
             }
 
         }

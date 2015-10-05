@@ -34,8 +34,8 @@ namespace ErgometerApplication
             this.updateTimer = new System.Windows.Forms.Timer(this.components);
             this.writeTimer = new System.Windows.Forms.Timer(this.components);
             this.panelClientContainer = new System.Windows.Forms.Panel();
-            this.panelFullscreenView = new System.Windows.Forms.Panel();
-            this.panelClientDataView = new ErgometerApplication.PanelClientDataView();
+            this.panelDataViewLeft = new System.Windows.Forms.Panel();
+            this.panelGraphView = new ErgometerApplication.PanelGraphView();
             this.panelClientChat = new ErgometerApplication.PanelClientChat();
             this.panelLogin = new ErgometerApplication.PanelLogin(this);
             this.panelTopBar = new System.Windows.Forms.Panel();
@@ -56,8 +56,8 @@ namespace ErgometerApplication
             // 
             // panelClientContainer
             // 
-            this.panelClientContainer.Controls.Add(this.panelFullscreenView);
-            this.panelClientContainer.Controls.Add(this.panelClientDataView);
+            this.panelClientContainer.Controls.Add(this.panelDataViewLeft);
+            this.panelClientContainer.Controls.Add(this.panelGraphView);
             this.panelClientContainer.Controls.Add(this.panelClientChat);
             this.panelClientContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelClientContainer.Location = new System.Drawing.Point(0, 0);
@@ -65,23 +65,23 @@ namespace ErgometerApplication
             this.panelClientContainer.Size = new System.Drawing.Size(800, 600);
             this.panelClientContainer.TabIndex = 0;
             // 
-            // panelFullscreenView
+            // panelDataViewLeft
             // 
-            this.panelFullscreenView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelFullscreenView.Location = new System.Drawing.Point(0, 0);
-            this.panelFullscreenView.Name = "panelFullscreenView";
-            this.panelFullscreenView.Size = new System.Drawing.Size(18, 600);
-            this.panelFullscreenView.TabIndex = 3;
-            this.panelFullscreenView.BackColor = System.Drawing.Color.Gray;
+            this.panelDataViewLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelDataViewLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelDataViewLeft.Name = "panelDataViewLeft";
+            this.panelDataViewLeft.Size = new System.Drawing.Size(18, 600);
+            this.panelDataViewLeft.TabIndex = 3;
+            this.panelDataViewLeft.BackColor = System.Drawing.Color.Gray;
             // 
-            // panelClientDataView
+            // panelGraphView
             // 
-            this.panelClientDataView.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.panelClientDataView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelClientDataView.Location = new System.Drawing.Point(0, 0);
-            this.panelClientDataView.Name = "panelClientDataView";
-            this.panelClientDataView.Size = new System.Drawing.Size(400, 600);
-            this.panelClientDataView.TabIndex = 1;
+            this.panelGraphView.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelGraphView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGraphView.Location = new System.Drawing.Point(0, 0);
+            this.panelGraphView.Name = "panelGraphView";
+            this.panelGraphView.Size = new System.Drawing.Size(400, 600);
+            this.panelGraphView.TabIndex = 1;
             // 
             // panelClientChat
             // 
@@ -165,9 +165,9 @@ namespace ErgometerApplication
         private System.Windows.Forms.Timer writeTimer;
         private System.Windows.Forms.Panel panelClientContainer;
         private PanelClientChat panelClientChat;
-        private PanelClientDataView panelClientDataView;
+        private PanelGraphView panelGraphView;
         private PanelLogin panelLogin;
-        private System.Windows.Forms.Panel panelFullscreenView;
+        private System.Windows.Forms.Panel panelDataViewLeft;
         private System.Windows.Forms.Panel panelTopBar;
         private System.Windows.Forms.Button buttonLogOff;
         private System.Windows.Forms.Label labelUsername;
