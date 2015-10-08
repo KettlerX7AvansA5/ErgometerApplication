@@ -33,7 +33,6 @@ namespace ErgometerApplication
         {
             this.components = new System.ComponentModel.Container();
             this.updateTimer = new System.Windows.Forms.Timer(this.components);
-            this.writeTimer = new System.Windows.Forms.Timer(this.components);
             this.panelClientContainer = new System.Windows.Forms.Panel();
             this.panelDataViewLeft = new System.Windows.Forms.Panel();
             this.panelGraphView = new ErgometerApplication.PanelGraphView();
@@ -58,11 +57,8 @@ namespace ErgometerApplication
             // 
             // updateTimer
             // 
-            this.updateTimer.Interval = 1500;
-            // 
-            // writeTimer
-            // 
-            this.writeTimer.Interval = 10000;
+            this.updateTimer.Interval = 350;
+            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // panelClientContainer
             // 
