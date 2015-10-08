@@ -57,7 +57,7 @@ namespace ErgometerApplication
             // 
             // updateTimer
             // 
-            this.updateTimer.Interval = 350;
+            this.updateTimer.Interval = 800;
             this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // panelClientContainer
@@ -176,7 +176,6 @@ namespace ErgometerApplication
 
         #endregion
         private System.Windows.Forms.Timer updateTimer;
-        private System.Windows.Forms.Timer writeTimer;
         private System.Windows.Forms.Panel panelClientContainer;
         private PanelClientChat panelClientChat;
         private PanelGraphView panelGraphView;

@@ -53,10 +53,20 @@ namespace ErgometerApplication
                 }
                 if (password.Length >= 8)
                 {
-                    MainClient.Connect(SerialPort.GetPortNames()[0], username, password);
-                    panelClientContainer.BringToFront();
-                    this.labelUsername.Text = panelLogin.textBoxUsername.Text;
-                    panelTopBar.Visible = true;
+                    /*
+                    if(SerialPort.GetPortNames().Length <= 0)
+                    {
+                        panelLogin.lblVerification.Text = "De Ergometer is niet gevonden.";
+                        panelLogin.lblVerification.ForeColor = Color.Red;
+                        panelLogin.lblVerification.Visible = true;
+                    }
+                    else
+                    { */
+                        MainClient.Connect(SerialPort.GetPortNames()[0], username, password);
+                        panelClientContainer.BringToFront();
+                        this.labelUsername.Text = panelLogin.textBoxUsername.Text;
+                        panelTopBar.Visible = true;
+                    //}
                 }
             }
             else
