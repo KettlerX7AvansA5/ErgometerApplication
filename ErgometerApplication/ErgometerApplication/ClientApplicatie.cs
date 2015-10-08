@@ -27,11 +27,21 @@ namespace ErgometerApplication
 
         private void updateTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Trying to send data....");
             if(MainClient.Doctor.Connected)
             {
+                Console.WriteLine("Sending data");
                 MainClient.ComPort.Write("ST");
                 string response = MainClient.ComPort.Read();
-                MainClient.SaveMeting(response);
+                Meting m = MainClient.SaveMeting(response);
+
+                heartBeat.updateValue(m.HeartBeat);
+                RPM.updateValue(m.RPM);
+                speed.updateValue(m.Speed);
+                distance.updateValue(m.Distance);
+                power.updateValue(m.Power);
+                energy.updateValue(m.Energy);
+                actualpower.updateValue(m.ActualPower);
             }
         }
 
@@ -62,10 +72,20 @@ namespace ErgometerApplication
                     }
                     else
                     { */
-                        MainClient.Connect(SerialPort.GetPortNames()[0], username, password);
-                        panelClientContainer.BringToFront();
-                        this.labelUsername.Text = panelLogin.textBoxUsername.Text;
-                        panelTopBar.Visible = true;
+                        if(MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
+                        {
+                            panelClientContainer.BringToFront();
+                            this.labelUsername.Text = panelLogin.textBoxUsername.Text;
+                            panelTopBar.Visible = true;
+                            updateTimer.Start();
+                        }
+                        else
+                        {
+                            panelLogin.lblVerification.Text = "De inloggegevens zijn onjuist.";
+                            panelLogin.lblVerification.ForeColor = Color.Red;
+                            panelLogin.lblVerification.Visible = true;
+                        }
+                        
                     //}
                 }
             }
@@ -112,6 +132,7 @@ namespace ErgometerApplication
             panelLogin.BringToFront();
             panelTopBar.Visible = false;
             sessionLogout();
+            updateTimer.Stop();
         }
     }
 }

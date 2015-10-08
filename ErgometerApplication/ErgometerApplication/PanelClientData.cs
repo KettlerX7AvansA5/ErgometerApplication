@@ -13,8 +13,14 @@ namespace ErgometerApplication
         public ProgressBar progressBarMeting;
         public Label metingName;
 
-        public PanelClientData(string name) : base()
+        private int min;
+        private int max;
+
+        public PanelClientData(string name, int min, int max) : base()
         {
+            this.min = min;
+            this.max = max;
+
             this.metingName = new System.Windows.Forms.Label();
             this.progressBarMeting = new System.Windows.Forms.ProgressBar();
             this.labelMetingCurrentValue = new System.Windows.Forms.Label();
@@ -47,7 +53,7 @@ namespace ErgometerApplication
             this.progressBarMeting.Name = "progressBarMeting";
             this.progressBarMeting.Size = new System.Drawing.Size(183, 23);
             this.progressBarMeting.TabIndex = 1;
-            this.progressBarMeting.Value = 50;
+            this.progressBarMeting.Value = 0;
             // 
             // labelMetingCurrentValue
             // 
@@ -58,7 +64,7 @@ namespace ErgometerApplication
             this.labelMetingCurrentValue.Name = "labelMetingCurrentValue";
             this.labelMetingCurrentValue.Size = new System.Drawing.Size(57, 32);
             this.labelMetingCurrentValue.TabIndex = 2;
-            this.labelMetingCurrentValue.Text = "255";
+            this.labelMetingCurrentValue.Text = "0";
         }
 
         public void setText(string text)
@@ -69,19 +75,30 @@ namespace ErgometerApplication
         public void updateValue(int value)
         {
             this.labelMetingCurrentValue.Text = value.ToString();
-            this.progressBarMeting.Value = value;
+            this.progressBarMeting.Value = ValueToPercentage(value);
         }
 
         public void updateValue(double value)
         {
             this.labelMetingCurrentValue.Text = value.ToString();
-            this.progressBarMeting.Value = (int)value;
+            this.progressBarMeting.Value = ValueToPercentage((int)value);
         }
 
         public void updateValue(decimal value)
         { 
             this.labelMetingCurrentValue.Text = value.ToString();
-            this.progressBarMeting.Value = (int)value;
+            this.progressBarMeting.Value = ValueToPercentage((int)value);
+        }
+
+        private int ValueToPercentage(int value)
+        {
+            if (value < min)
+                return 0;
+
+            if (value > max)
+                return 100;
+
+            return ((value - min) * 100) / (max - min);
         }
     }
 }

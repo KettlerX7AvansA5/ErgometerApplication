@@ -17,6 +17,7 @@ namespace ErgometerApplication
         public static List<Meting> Metingen { get; }
 
         public static int Session;
+        public static bool Loggedin;
 
         public static string HOST = "127.0.0.1";
         public static int PORT = 8888;
@@ -28,10 +29,37 @@ namespace ErgometerApplication
             Metingen = new List<Meting>();
 
             Session = 0;
+            Loggedin = false;
         }
 
-        public static void Connect(string comport, string name, string password)
+        public static bool Connect(string comport, string name, string password)
         {
+            if (!Doctor.Connected)
+            {
+                Doctor.Connect(HOST, PORT);
+
+                NetCommand net = NetHelper.ReadNetCommand(Doctor);
+                if (net.Type == NetCommand.CommandType.SESSION)
+                    Session = net.Session;
+                else
+                    throw new Exception("Session not assigned");
+            }
+
+            if(! Loggedin)
+            {
+                NetCommand command = new NetCommand(name, false, password, Session);
+                NetHelper.SendNetCommand(Doctor, command);
+
+                NetCommand response = NetHelper.ReadNetCommand(Doctor);
+                if (response.Type == NetCommand.CommandType.RESPONSE && response.Response == NetCommand.ResponseType.LOGINWRONG)
+                {
+                    Loggedin = false;
+                    return false;
+                }
+
+                Loggedin = true;
+            }
+
             if (!ComPort.IsOpen())
             {
                 if (ComPort.Connect(comport))
@@ -52,25 +80,8 @@ namespace ErgometerApplication
                 else
                     throw new Exception("Comport was unable to connect");
             }
-            else
-                throw new Exception("Comport is already connected");
 
-
-            if(!Doctor.Connected)
-            {
-                Doctor.Connect(HOST, PORT);
-
-                NetCommand net = NetHelper.ReadNetCommand(Doctor);
-                if (net.Type == NetCommand.CommandType.SESSION)
-                    Session = net.Session;
-                else
-                    throw new Exception("Session not assigned");
-
-                NetCommand command = new NetCommand(name, false, password, Session);
-                NetHelper.SendNetCommand(Doctor, command);
-            }
-            else
-                throw new Exception("Client is already connected");
+            return true;
         }
 
         public static void Disconnect()
@@ -84,19 +95,16 @@ namespace ErgometerApplication
                 else
                     throw new Exception("Comport was unable to disconnect");
             }
-            else
-                throw new Exception("Comport is already closed");
 
             if (Doctor.Connected)
             {
                 NetHelper.SendNetCommand(Doctor, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
+                Loggedin = false;
                 Doctor.Close();
             }
-            else
-                throw new Exception("Client is already disconnected");
         }
 
-        public static void SaveMeting(string meting)
+        public static Meting SaveMeting(string meting)
         {
             Meting m = Meting.Parse(meting);
             Metingen.Add(m);
@@ -104,6 +112,8 @@ namespace ErgometerApplication
             {
                 NetHelper.SendNetCommand(Doctor, new NetCommand(m, Session));
             }
+
+            return m;
         }
     }
 }

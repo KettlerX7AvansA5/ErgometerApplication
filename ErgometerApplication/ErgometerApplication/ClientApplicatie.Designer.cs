@@ -43,13 +43,13 @@ namespace ErgometerApplication
             this.labelUsername = new System.Windows.Forms.Label();
             this.labelHallo = new System.Windows.Forms.Label();
 
-            this.heartBeat = new PanelClientData("Hartslag");
-            this.RPM = new PanelClientData("RPM");
-            this.speed = new PanelClientData("Snelheid");
-            this.distance = new PanelClientData("Afstand (km)");
-            this.power = new PanelClientData("Weerstand");
-            this.energy = new PanelClientData("Energie");
-            this.actualpower = new PanelClientData("Absolute Weerstand");
+            this.heartBeat = new PanelClientData("Hartslag", 0, 250);
+            this.RPM = new PanelClientData("RPM", 0, 100);
+            this.speed = new PanelClientData("Snelheid", 0, 500);
+            this.distance = new PanelClientData("Afstand (km)", 0, 1000);
+            this.power = new PanelClientData("Weerstand", 25, 400);
+            this.energy = new PanelClientData("Energie", 0, 200);
+            this.actualpower = new PanelClientData("Absolute Weerstand", 0, 400);
 
             this.panelClientContainer.SuspendLayout();
             this.panelTopBar.SuspendLayout();

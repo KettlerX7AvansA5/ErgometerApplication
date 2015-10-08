@@ -70,8 +70,6 @@
     <Compile Include="PanelLogin.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ServerCommunicator.cs" />
-    <Compile Include="DataSaving.cs" />
     <Compile Include="ClientApplicatie.cs">
       <SubType>Form</SubType>
     </Compile>
