@@ -15,9 +15,15 @@ namespace ErgometerApplication
         public static ComPort ComPort { get; }
         public static TcpClient Doctor { get; }
         public static List<Meting> Metingen { get; }
+        public static List<ChatMessage> Chat { get; }
+
+        public static string Name;
 
         public static int Session;
         public static bool Loggedin;
+
+        private static Thread t;
+        private static bool running;
 
         public static string HOST = "127.0.0.1";
         public static int PORT = 8888;
@@ -27,7 +33,11 @@ namespace ErgometerApplication
             ComPort = new ComPort();
             Doctor = new TcpClient();
             Metingen = new List<Meting>();
+            Chat = new List<ChatMessage>();
 
+            t = new Thread(run);
+
+            Name = "Unknown";
             Session = 0;
             Loggedin = false;
         }
@@ -37,12 +47,16 @@ namespace ErgometerApplication
             if (!Doctor.Connected)
             {
                 Doctor.Connect(HOST, PORT);
+                Name = name;
 
                 NetCommand net = NetHelper.ReadNetCommand(Doctor);
                 if (net.Type == NetCommand.CommandType.SESSION)
                     Session = net.Session;
                 else
                     throw new Exception("Session not assigned");
+
+                running = true;
+                t.Start();
             }
 
             if(! Loggedin)
@@ -101,6 +115,7 @@ namespace ErgometerApplication
                 NetHelper.SendNetCommand(Doctor, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 Loggedin = false;
                 Doctor.Close();
+                running = false;
             }
         }
 
@@ -114,6 +129,77 @@ namespace ErgometerApplication
             }
 
             return m;
+        }
+
+        public static void run()
+        {
+            while(running)
+            {
+                if(Doctor.Available > 0)
+                {
+                    NetCommand command = NetHelper.ReadNetCommand(Doctor);
+                    ParseCommand(command);
+                }
+            }
+        }
+
+        private static void ParseCommand(NetCommand command)
+        {
+            switch(command.Type)
+            {
+                case NetCommand.CommandType.VALUESET:
+                    ParseValueSet(command);
+                    break;
+                case NetCommand.CommandType.CHAT:
+                    Chat.Add(new ChatMessage(Name, command.ChatMessage));
+                    break;
+                case NetCommand.CommandType.RESPONSE:
+                    Console.WriteLine(command.Response.ToString());
+                    break;
+                case NetCommand.CommandType.SESSION:
+                    Session = command.Session;
+                    break;
+                default:
+                    throw new FormatException("Error in Netcommand: Received command not recognized");
+            }
+        }
+
+        private static void ParseValueSet(NetCommand command)
+        {
+            switch(command.Value)
+            {
+                case NetCommand.ValueType.DISTANCE:
+                    ComPort.Write("RS");
+                    ComPort.Read();
+                    Thread.Sleep(200);
+                    ComPort.Write("PD " + command.SetValue.ToString());
+                    ComPort.Read();
+                    break;
+                case NetCommand.ValueType.ENERGY:
+                    ComPort.Write("RS");
+                    ComPort.Read();
+                    Thread.Sleep(200);
+                    ComPort.Write("PE " + command.SetValue.ToString());
+                    ComPort.Read();
+                    break;
+                case NetCommand.ValueType.POWER:
+                    ComPort.Write("RS");
+                    ComPort.Read();
+                    Thread.Sleep(200);
+                    ComPort.Write("PW " + command.SetValue.ToString());
+                    ComPort.Read();
+                    break;
+                case NetCommand.ValueType.TIME:
+                    ComPort.Write("RS");
+                    ComPort.Read();
+                    Thread.Sleep(200);
+                    string time = (command.SetValue / 60) + ":" + (command.SetValue % 60);
+                    ComPort.Write("PT " + time);
+                    ComPort.Read();
+                    break;
+                default:
+                    throw new FormatException("Error in NetCommand: ValueSet is not recognized");
+            }
         }
     }
 }
