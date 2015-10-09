@@ -135,7 +135,7 @@ namespace ErgometerApplication
         {
             while(running)
             {
-                if(Doctor.Available > 0)
+                if(Doctor.Connected && Doctor.Available > 0)
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Doctor);
                     ParseCommand(command);
