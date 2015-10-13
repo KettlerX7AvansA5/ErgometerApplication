@@ -114,7 +114,6 @@ namespace ErgometerApplication
             {
                 NetHelper.SendNetCommand(Doctor, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 Loggedin = false;
-                Doctor.Close();
                 running = false;
             }
         }
@@ -141,6 +140,8 @@ namespace ErgometerApplication
                     ParseCommand(command);
                 }
             }
+
+            Doctor.Close();
         }
 
         private static void ParseCommand(NetCommand command)
