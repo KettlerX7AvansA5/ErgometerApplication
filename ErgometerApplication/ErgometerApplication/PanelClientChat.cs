@@ -17,10 +17,8 @@ namespace ErgometerApplication
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel container;
         private System.Windows.Forms.Label connectionLabel;
 
         public PanelClientChat() : base()
@@ -35,18 +33,17 @@ namespace ErgometerApplication
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 
             this.panel3 = new System.Windows.Forms.Panel();
-            this.container = new System.Windows.Forms.Panel();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(421, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(390, 36);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
             this.flowLayoutPanel1.SizeChanged += new System.EventHandler(this.FlowLayoutPanel1_SizeChanged);
@@ -57,7 +54,7 @@ namespace ErgometerApplication
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(409, 24);
+            this.panel2.Size = new System.Drawing.Size(385, 24);
             this.panel2.TabIndex = 0;
             // 
             // connectionLabel
@@ -90,16 +87,15 @@ namespace ErgometerApplication
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.richTextBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 461);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(421, 100);
+            this.panel1.Size = new System.Drawing.Size(400, 100);
             this.panel1.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.White;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(331, 4);
+            this.button1.Location = new System.Drawing.Point(310, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 90);
             this.button1.TabIndex = 1;
@@ -116,7 +112,7 @@ namespace ErgometerApplication
             this.richTextBox1.MaxLength = 250;
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox1.Size = new System.Drawing.Size(321, 90);
+            this.richTextBox1.Size = new System.Drawing.Size(300, 90);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
@@ -124,23 +120,23 @@ namespace ErgometerApplication
             // panel3
             // 
             this.panel3.AutoScroll = true;
+            this.panel3.HorizontalScroll.Enabled = false;
+            this.panel3.HorizontalScroll.Visible = false;
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
+
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(421, 459);
-            this.panel3.TabIndex = 2;
+            this.panel3.TabIndex = 1;
             // 
             // container
             // 
-            this.container.Controls.Add(this.panel1);
-            this.container.Controls.Add(this.panel3);
-            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.container.Location = new System.Drawing.Point(0, 0);
-            this.container.Name = "container";
-            this.container.Size = new System.Drawing.Size(421, 561);
-            this.container.TabIndex = 3;
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel1);
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Name = "container";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseWheel);
         }
 
@@ -163,9 +159,23 @@ namespace ErgometerApplication
         {
             if (flowLayoutPanel1.Size.Height > panel3.Size.Height)
             {
-                panel2.Width = 390;
+                panel2.Width = 375;
+                flowLayoutPanel1.Width = 380;
                 panel3.VerticalScroll.Value = panel3.VerticalScroll.Maximum;
             }
+        }
+
+        private bool textBoxIsEmpty()
+        {
+            string[] text = richTextBox1.Text.Split();
+            foreach(string s in text)
+            {
+                if(s != " ")
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

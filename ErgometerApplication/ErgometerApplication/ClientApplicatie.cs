@@ -72,7 +72,7 @@ namespace ErgometerApplication
                     }
                     else
                     { */
-                        if(MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
+                        if(true)//MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
                         {
                             panelClientContainer.BringToFront();
                             this.labelUsername.Text = panelLogin.textBoxUsername.Text;
@@ -110,7 +110,7 @@ namespace ErgometerApplication
             {
                 panelGraphView.Visible = true;
                 panelDataViewLeft.Width = 250;
-                panelClientChat.Width = 300;
+                panelClientChat.Width = 400;
                 panelDataViewLeft.Dock = DockStyle.Left;
             }
             if (control.Size.Width >= 1368)
