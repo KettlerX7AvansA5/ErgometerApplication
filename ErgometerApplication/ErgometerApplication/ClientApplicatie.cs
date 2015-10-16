@@ -20,9 +20,11 @@ namespace ErgometerApplication
 {
     public partial class ClientApplicatie : Form
     {
+        public PanelClientChat chat;
         public ClientApplicatie()
         {
             InitializeComponent();
+            MainClient.Init(this);
         }
 
         private void updateTimer_Tick(object sender, EventArgs e)
@@ -55,7 +57,7 @@ namespace ErgometerApplication
                     panelLogin.lblVerification.ForeColor = Color.Red;
                     panelLogin.lblVerification.Visible = true;
                 }
-                if (password.Length > 0 && password.Length < 8)
+                if (password.Length > 0 && password.Length < 4)
                 {
                     panelLogin.lblVerification.Text = "Vul een wachtwoord in van minimaal 8 karakters.";
                     panelLogin.lblVerification.ForeColor = Color.Red;
@@ -75,6 +77,7 @@ namespace ErgometerApplication
                         if(MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
                         {
                             panelClientContainer.BringToFront();
+                            chat = panelClientChat;
                             this.labelUsername.Text = panelLogin.textBoxUsername.Text;
                             panelTopBar.Visible = true;
                             updateTimer.Start();

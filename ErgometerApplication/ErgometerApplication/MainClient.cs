@@ -28,6 +28,8 @@ namespace ErgometerApplication
         public static string HOST = "127.0.0.1";
         public static int PORT = 8888;
 
+        public static ClientApplicatie Client;
+
         static MainClient()
         {
             ComPort = new ComPort();
@@ -40,6 +42,11 @@ namespace ErgometerApplication
             Name = "Unknown";
             Session = 0;
             Loggedin = false;
+        }
+
+        public static void Init(ClientApplicatie client)
+        {
+            Client = client;
         }
 
         public static bool Connect(string comport, string name, string password)
@@ -153,6 +160,7 @@ namespace ErgometerApplication
                     break;
                 case NetCommand.CommandType.CHAT:
                     Chat.Add(new ChatMessage(Name, command.ChatMessage));
+                    Client.chat.AddChatItem(command.ChatMessage);
                     break;
                 case NetCommand.CommandType.RESPONSE:
                     Console.WriteLine(command.Response.ToString());
@@ -163,6 +171,11 @@ namespace ErgometerApplication
                 default:
                     throw new FormatException("Error in Netcommand: Received command not recognized");
             }
+        }
+
+        public static void SendNetCommand(NetCommand command)
+        {
+            NetHelper.SendNetCommand(Doctor, command);
         }
 
         private static void ParseValueSet(NetCommand command)
