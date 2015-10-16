@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ErgometerLibrary;
 
 namespace ErgometerApplication
 {
@@ -144,11 +145,17 @@ namespace ErgometerApplication
         {
             if (richTextBox1.TextLength > 1)
             {
-                flowLayoutPanel1.Controls.Add(new ChatItem(richTextBox1.Text, DateTime.Now.ToString("h:mm:ss tt"), true));
                 flowLayoutPanel1.Controls.Add(new ChatItem(richTextBox1.Text, DateTime.Now.ToString("h:mm:ss tt"), false));
+                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
                 richTextBox1.ResetText();
             }
         }
+
+       public void AddChatItem(string text)
+       {
+            flowLayoutPanel1.Controls.Add(new ChatItem(text, DateTime.Now.ToString("h:mm:ss tt"), false));
+        }
+
 
         private void panel3_MouseWheel(object sender, MouseEventArgs e)
         {
