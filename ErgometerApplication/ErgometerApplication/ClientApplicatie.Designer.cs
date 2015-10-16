@@ -62,8 +62,9 @@ namespace ErgometerApplication
             // 
             // panelClientContainer
             // 
-            this.panelClientContainer.Controls.Add(this.panelDataViewLeft);
             this.panelClientContainer.Controls.Add(this.panelGraphView);
+            this.panelClientContainer.Controls.Add(this.panelDataViewLeft);
+
             this.panelClientContainer.Controls.Add(this.panelClientChat);
             this.panelClientContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelClientContainer.Location = new System.Drawing.Point(0, 0);
@@ -87,15 +88,6 @@ namespace ErgometerApplication
             this.panelDataViewLeft.Controls.Add(energy);
             this.panelDataViewLeft.Controls.Add(actualpower);
 
-            // 
-            // panelGraphView
-            // 
-            this.panelGraphView.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.panelGraphView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGraphView.Location = new System.Drawing.Point(0, 0);
-            this.panelGraphView.Name = "panelGraphView";
-            this.panelGraphView.Size = new System.Drawing.Size(400, 600);
-            this.panelGraphView.TabIndex = 1;
             // 
             // panelClientChat
             // 
