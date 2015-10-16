@@ -61,7 +61,7 @@ namespace ErgometerApplication
                     panelLogin.lblVerification.ForeColor = Color.Red;
                     panelLogin.lblVerification.Visible = true;
                 }
-                if (password.Length >= 8)
+                if (password.Length >= 3)
                 {
                     /*
                     if(SerialPort.GetPortNames().Length <= 0)
@@ -72,7 +72,7 @@ namespace ErgometerApplication
                     }
                     else
                     { */
-                        if(true)//MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
+                        if(MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
                         {
                             panelClientContainer.BringToFront();
                             this.labelUsername.Text = panelLogin.textBoxUsername.Text;
