@@ -159,7 +159,7 @@ namespace ErgometerApplication
                     ParseValueSet(command);
                     break;
                 case NetCommand.CommandType.CHAT:
-                    Chat.Add(new ChatMessage(Name, command.ChatMessage));
+                    Chat.Add(new ChatMessage(Name, command.ChatMessage, true));
                     Client.chat.AddChatItem(command.ChatMessage);
                     break;
                 case NetCommand.CommandType.RESPONSE:

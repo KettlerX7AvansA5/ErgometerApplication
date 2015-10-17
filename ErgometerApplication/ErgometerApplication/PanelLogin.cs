@@ -81,6 +81,7 @@ namespace ErgometerApplication
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(167, 20);
             this.textBoxPassword.TabIndex = 2;
+            this.textBoxPassword.KeyDown += TextBoxPassword_KeyDown;
             // 
             // textBoxUsername
             // 
@@ -136,6 +137,14 @@ namespace ErgometerApplication
             this.lblPassword.TabIndex = 0;
             this.lblPassword.Text = "Wachtwoord";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBike)).EndInit();
+        }
+
+        private void TextBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin_Click(this, new EventArgs());
+            }
         }
 
         public void buttonLogin_Click(object sender, EventArgs e)

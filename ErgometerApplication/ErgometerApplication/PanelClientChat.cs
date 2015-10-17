@@ -139,26 +139,28 @@ namespace ErgometerApplication
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "container";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseWheel);
+
+            Form.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (richTextBox1.TextLength > 1)
             {
-                AddChatItem(richTextBox1.Text, DateTime.Now.ToString("h:mm:ss tt"), false);
+                AddChatItem(richTextBox1.Text, Helper.MillisecondsToTime(Helper.Now), false);
                 MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
                 richTextBox1.ResetText();
             }
         }
 
-       public void AddChatItem(string chatmessage)
+       public void AddChatItem(string text)
        {
-           
-       }
+            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), true));
+        }
 
        public void AddChatItem(string text, bool isDoctor)
        {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, DateTime.Now.ToString("h:mm:ss tt"), isDoctor));
+            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), isDoctor));
         }
 
        public void AddChatItem(string text, string time, bool isDoctor)
