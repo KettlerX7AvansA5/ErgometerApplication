@@ -145,17 +145,26 @@ namespace ErgometerApplication
         {
             if (richTextBox1.TextLength > 1)
             {
-                flowLayoutPanel1.Controls.Add(new ChatItem(richTextBox1.Text, DateTime.Now.ToString("h:mm:ss tt"), false));
+                AddChatItem(richTextBox1.Text, DateTime.Now.ToString("h:mm:ss tt"), false);
                 MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
                 richTextBox1.ResetText();
             }
         }
 
-       public void AddChatItem(string text)
+       public void AddChatItem(string chatmessage)
        {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, DateTime.Now.ToString("h:mm:ss tt"), false));
+           
+       }
+
+       public void AddChatItem(string text, bool isDoctor)
+       {
+            flowLayoutPanel1.Controls.Add(new ChatItem(text, DateTime.Now.ToString("h:mm:ss tt"), isDoctor));
         }
 
+       public void AddChatItem(string text, string time, bool isDoctor)
+       {
+           flowLayoutPanel1.Controls.Add(new ChatItem(text,time,isDoctor));
+       }
 
         private void panel3_MouseWheel(object sender, MouseEventArgs e)
         {
