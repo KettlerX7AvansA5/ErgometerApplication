@@ -51,6 +51,35 @@ namespace ErgometerApplication
         {
             error = "Succes";
 
+            if (!ComPort.IsOpen())
+            {
+                if (ComPort.Connect(comport))
+                {
+                    ComPort.Write("RS");
+                    string temp = ComPort.Read();
+                    if (temp == "error")
+                    {
+                        ComPort.Disconnect();
+                        error = "De Ergometer is niet verbonden";
+                        return false;
+                    }
+                    Thread.Sleep(200);
+                    ComPort.Write("CM");
+                    ComPort.Read();
+                    Thread.Sleep(200);
+
+                    ComPort.Write("ST");
+                    string response = ComPort.Read();
+
+                    SaveMeting(response);
+                }
+                else
+                {
+                    error = "De ergometer is niet verbonden";
+                    return false;
+                }
+            }
+
             if (Doctor == null || !Doctor.Connected)
             {
                 if (Doctor == null)
@@ -95,29 +124,6 @@ namespace ErgometerApplication
                 }
 
                 Loggedin = true;
-            }
-
-            if (!ComPort.IsOpen())
-            {
-                if (ComPort.Connect(comport))
-                {
-                    ComPort.Write("RS");
-                    ComPort.Read();
-                    Thread.Sleep(200);
-                    ComPort.Write("CM");
-                    ComPort.Read();
-                    Thread.Sleep(200);
-
-                    ComPort.Write("ST");
-                    string response = ComPort.Read();
-
-                    SaveMeting(response);
-                }
-                else
-                {
-                    error = "De ergometer is niet verbonden";
-                    return false;
-                }
             }
 
             return true;
