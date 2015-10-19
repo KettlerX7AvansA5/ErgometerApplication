@@ -21,10 +21,13 @@ namespace ErgometerApplication
     public partial class ClientApplicatie : Form
     {
         public PanelClientChat chat;
+        private int count;
+
         public ClientApplicatie()
         {
             InitializeComponent();
             MainClient.Init(this);
+            count = 0;
         }
 
         private void updateTimer_Tick(object sender, EventArgs e)
@@ -44,6 +47,14 @@ namespace ErgometerApplication
                 power.updateValue(m.Power);
                 energy.updateValue(m.Energy);
                 actualpower.updateValue(m.ActualPower);
+
+                if(count >= 10)
+                {
+                    count = 0;
+                    panelGraphView.updateAllCharts(MainClient.Metingen);
+                }
+
+                count++;
             }
         }
 
@@ -59,37 +70,30 @@ namespace ErgometerApplication
                 }
                 if (password.Length > 0 && password.Length < 4)
                 {
-                    panelLogin.lblVerification.Text = "Vul een wachtwoord in van minimaal 8 karakters.";
+                    panelLogin.lblVerification.Text = "Vul een wachtwoord in van minimaal 4 karakters.";
                     panelLogin.lblVerification.ForeColor = Color.Red;
                     panelLogin.lblVerification.Visible = true;
                 }
                 if (password.Length >= 3)
                 {
-                    /*
-                    if(SerialPort.GetPortNames().Length <= 0)
+                    string error = "";
+                    bool connect = MainClient.Connect(SerialPort.GetPortNames()[0], username, password, out error);
+
+                    if (connect)
                     {
-                        panelLogin.lblVerification.Text = "De Ergometer is niet gevonden.";
+                        panelClientContainer.BringToFront();
+                        chat = panelClientChat;
+                        this.labelUsername.Text = panelLogin.textBoxUsername.Text;
+                        panelTopBar.Visible = true;
+                        updateTimer.Start();
+                    }
+                    else
+                    {
+                        panelLogin.lblVerification.Text = error;
                         panelLogin.lblVerification.ForeColor = Color.Red;
                         panelLogin.lblVerification.Visible = true;
                     }
-                    else
-                    { */
-                        if(MainClient.Connect(SerialPort.GetPortNames()[0], username, password))
-                        {
-                            panelClientContainer.BringToFront();
-                            chat = panelClientChat;
-                            this.labelUsername.Text = panelLogin.textBoxUsername.Text;
-                            panelTopBar.Visible = true;
-                            updateTimer.Start();
-                        }
-                        else
-                        {
-                            panelLogin.lblVerification.Text = "De inloggegevens zijn onjuist.";
-                            panelLogin.lblVerification.ForeColor = Color.Red;
-                            panelLogin.lblVerification.Visible = true;
-                        }
                         
-                    //}
                 }
             }
             else

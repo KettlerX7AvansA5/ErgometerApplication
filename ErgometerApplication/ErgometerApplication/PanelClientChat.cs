@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ErgometerLibrary;
+using ErgometerLibrary.Chat;
 
 namespace ErgometerApplication
 {
@@ -66,7 +67,7 @@ namespace ErgometerApplication
             this.connectionLabel.Name = "connectionLabel";
             this.connectionLabel.Size = new System.Drawing.Size(112, 13);
             this.connectionLabel.TabIndex = 0;
-            this.connectionLabel.Text = "Now connected with:";
+            this.connectionLabel.Text = "Now connected with: Doctor";
             // 
             // label2
             // 
@@ -100,7 +101,7 @@ namespace ErgometerApplication
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 90);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Verstuur";
+            this.button1.Text = "Send";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -147,26 +148,16 @@ namespace ErgometerApplication
         {
             if (richTextBox1.TextLength > 1)
             {
-                AddChatItem(richTextBox1.Text, Helper.MillisecondsToTime(Helper.Now), false);
+                AddChatItem(new ChatMessage("Anon", richTextBox1.Text, false));
                 MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
                 richTextBox1.ResetText();
             }
         }
 
-       public void AddChatItem(string text)
+       public void AddChatItem(ChatMessage chat)
        {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), true));
+            flowLayoutPanel1.Controls.Add(new ChatItem(chat));
         }
-
-       public void AddChatItem(string text, bool isDoctor)
-       {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), isDoctor));
-        }
-
-       public void AddChatItem(string text, string time, bool isDoctor)
-       {
-           flowLayoutPanel1.Controls.Add(new ChatItem(text,time,isDoctor));
-       }
 
         private void panel3_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -201,10 +192,11 @@ namespace ErgometerApplication
             if (e.KeyCode == Keys.Enter)
             {
                 button1_Click(this, new EventArgs());
+                e.Handled = true;
             }
         }
 
-        public delegate void ChatDelegate(string text, string time, bool isDoctor);
+        public delegate void ChatDelegate(ChatMessage chat);
         public ChatDelegate passChatMessage;
     }
 }

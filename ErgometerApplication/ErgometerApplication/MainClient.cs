@@ -49,11 +49,20 @@ namespace ErgometerApplication
             Client = client;
         }
 
-        public static bool Connect(string comport, string name, string password)
+        public static bool Connect(string comport, string name, string password, out string error)
         {
+            error = "Succes";
+
             if (!Doctor.Connected)
             {
-                Doctor.Connect(HOST, PORT);
+                try {
+                    Doctor.Connect(HOST, PORT);
+                }
+                catch (Exception e)
+                {
+                    error = "De server is niet online.";
+                    return false;
+                }
                 Name = name;
 
                 NetCommand net = NetHelper.ReadNetCommand(Doctor);
@@ -63,6 +72,7 @@ namespace ErgometerApplication
                     throw new Exception("Session not assigned");
 
                 running = true;
+                t.IsBackground = true;
                 t.Start();
             }
 
@@ -75,6 +85,7 @@ namespace ErgometerApplication
                 if (response.Type == NetCommand.CommandType.RESPONSE && response.Response == NetCommand.ResponseType.LOGINWRONG)
                 {
                     Loggedin = false;
+                    error = "De inloggegevens zijn onjuist.";
                     return false;
                 }
 
@@ -99,7 +110,10 @@ namespace ErgometerApplication
                     SaveMeting(response);
                 }
                 else
-                    throw new Exception("Comport was unable to connect");
+                {
+                    error = "De ergometer is niet verbonden";
+                    return false;
+                }
             }
 
             return true;
@@ -159,8 +173,9 @@ namespace ErgometerApplication
                     ParseValueSet(command);
                     break;
                 case NetCommand.CommandType.CHAT:
-                    Chat.Add(new ChatMessage(Name, command.ChatMessage, true));
-                    Client.chat.Invoke(Client.chat.passChatMessage, new Object[] {command.ChatMessage, Helper.MillisecondsToTime(command.Timestamp), true});
+                    ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, true);
+                    Chat.Add(chat);
+                    Client.chat.Invoke(Client.chat.passChatMessage, new Object[] { chat });
                     break;
                 case NetCommand.CommandType.RESPONSE:
                     Console.WriteLine(command.Response.ToString());

@@ -11,7 +11,7 @@ namespace ErgometerApplication
     {
 
         public PanelClientChat panelClientChat;
-        private PanelGraphView panelGraphView;
+        public PanelGraphView panelGraphView;
 
         public PanelClientContainer() : base()
         {

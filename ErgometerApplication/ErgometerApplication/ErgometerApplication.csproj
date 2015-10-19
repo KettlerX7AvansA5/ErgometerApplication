@@ -59,9 +59,6 @@
     <Compile Include="ChartPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ChatItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MainClient.cs" />
     <Compile Include="PanelClientData.cs">
       <SubType>Component</SubType>
