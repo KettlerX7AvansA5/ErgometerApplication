@@ -13,7 +13,7 @@ namespace ErgometerApplication
     {
 
         public static ComPort ComPort { get; }
-        public static TcpClient Doctor { get; }
+        public static TcpClient Doctor { get; set; }
         public static List<Meting> Metingen { get; }
         public static List<ChatMessage> Chat { get; }
 
@@ -37,8 +37,6 @@ namespace ErgometerApplication
             Metingen = new List<Meting>();
             Chat = new List<ChatMessage>();
 
-            t = new Thread(run);
-
             Name = "Unknown";
             Session = 0;
             Loggedin = false;
@@ -53,16 +51,21 @@ namespace ErgometerApplication
         {
             error = "Succes";
 
-            if (!Doctor.Connected)
+            if (Doctor == null || !Doctor.Connected)
             {
-                try {
+                if (Doctor == null)
+                    Doctor = new TcpClient();
+
+                try
+                {
                     Doctor.Connect(HOST, PORT);
                 }
                 catch (Exception e)
                 {
-                    error = "De server is niet online.";
+                    error = "Server is niet online.";
                     return false;
                 }
+
                 Name = name;
 
                 NetCommand net = NetHelper.ReadNetCommand(Doctor);
@@ -72,6 +75,8 @@ namespace ErgometerApplication
                     throw new Exception("Session not assigned");
 
                 running = true;
+
+                t = new Thread(run);
                 t.IsBackground = true;
                 t.Start();
             }
@@ -105,7 +110,6 @@ namespace ErgometerApplication
 
                     ComPort.Write("ST");
                     string response = ComPort.Read();
-                    Console.WriteLine(response);
 
                     SaveMeting(response);
                 }
@@ -136,6 +140,8 @@ namespace ErgometerApplication
                 NetHelper.SendNetCommand(Doctor, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 Loggedin = false;
                 running = false;
+                Doctor.Close();
+                Doctor = null;
             }
         }
 
@@ -182,6 +188,9 @@ namespace ErgometerApplication
                     break;
                 case NetCommand.CommandType.SESSION:
                     Session = command.Session;
+                    break;
+                case NetCommand.CommandType.ERROR:
+                    Console.WriteLine("An error occured, ignoring");
                     break;
                 default:
                     throw new FormatException("Error in Netcommand: Received command not recognized");

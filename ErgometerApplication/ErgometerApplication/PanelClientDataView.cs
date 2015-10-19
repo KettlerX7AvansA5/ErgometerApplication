@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ErgometerApplication
 {
-    public class PanelGraphView:Panel
+    public class PanelGraphView : Panel
     {
 
         private List<ChartPanel> charts;
@@ -16,7 +17,7 @@ namespace ErgometerApplication
 
         public PanelGraphView() : base()
         {
-            createCharts();        
+            createCharts();
 
             flowlayout = new FlowLayoutPanel();
 
@@ -26,22 +27,13 @@ namespace ErgometerApplication
             flowlayout.Name = "flowlayout";
             flowlayout.Padding = new Padding(15);
             flowlayout.AutoScroll = true;
-            foreach(ChartPanel chart in charts)
+            foreach (ChartPanel chart in charts)
             {
                 flowlayout.Controls.Add(chart);
             }
 
             List<Meting> metingen = new List<Meting>();
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
-            metingen.Add(new Meting(23, 25, 12, 46, 13, 25, 13, 1, 32));
+            metingen.Add(new Meting(0, 0, 0, 0, 0, 0, 0, 0, 0));
 
             updateAllCharts(metingen);
             // 
@@ -59,19 +51,18 @@ namespace ErgometerApplication
         public void createCharts()
         {
             charts = new List<ChartPanel>();
-            charts.Add(new ChartPanel(ChartPanel.MetingType.HEARTBEAT));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.RPM));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.SPEED));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.DISTANCE));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.ENERGY));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.SECONDS));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.POWER));
-            charts.Add(new ChartPanel(ChartPanel.MetingType.ACTUALPOWER));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.HEARTBEAT, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.RPM, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.SPEED, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.DISTANCE, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.ENERGY, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.POWER, SeriesChartType.Line));
+            charts.Add(new ChartPanel(ChartPanel.MetingType.ACTUALPOWER, SeriesChartType.Line));
         }
 
         public void updateAllCharts(List<Meting> metingen)
         {
-            foreach(ChartPanel chart in charts)
+            foreach (ChartPanel chart in charts)
             {
                 chart.updateChart(metingen);
             }

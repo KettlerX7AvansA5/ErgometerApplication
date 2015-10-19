@@ -6,19 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+
 namespace ErgometerApplication
 {
-    public class ChartPanel:Panel
+    public class ChartPanel : Panel
     {
         private Chart chart;
         private MetingType type;
         private ChartArea chartArea;
         private Series series;
+        private SeriesChartType ChartType;
 
-        public ChartPanel(MetingType type) : base()
+        public ChartPanel(MetingType type, SeriesChartType charttype) : base()
         {
             this.type = type;
-            
+            this.ChartType = charttype;
+
             this.chart = new Chart();
             this.chartArea = new ChartArea();
             this.chart.Titles.Add(new Title(type.ToString()));
@@ -32,7 +35,7 @@ namespace ErgometerApplication
             this.chartArea.Name = "chartArea";
 
             this.chart.Size = new System.Drawing.Size(250, 200);
-           
+
             this.chart.Dock = DockStyle.Fill;
             this.chart.Series.Add(series);
             this.chart.Text = "chart";
@@ -56,7 +59,7 @@ namespace ErgometerApplication
         {
             Series serie = new Series();
             serie.Name = "series";
-            serie.ChartType = SeriesChartType.Line;
+            serie.ChartType = ChartType;
             serie.ChartArea = "chartArea";
             serie.BorderWidth = 3;
             return serie;
@@ -64,7 +67,7 @@ namespace ErgometerApplication
 
         public int getMetingType(Meting meting)
         {
-            switch(type)
+            switch (type)
             {
                 case MetingType.HEARTBEAT:
                     return meting.HeartBeat;
@@ -83,7 +86,7 @@ namespace ErgometerApplication
                 case MetingType.ACTUALPOWER:
                     return meting.ActualPower;
                 default:
-                    return 0;  
+                    return 0;
             }
         }
 
@@ -96,7 +99,7 @@ namespace ErgometerApplication
             POWER,
             ENERGY,
             SECONDS,
-            ACTUALPOWER            
+            ACTUALPOWER
         }
     }
 }

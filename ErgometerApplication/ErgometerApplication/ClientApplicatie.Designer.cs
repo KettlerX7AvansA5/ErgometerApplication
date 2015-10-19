@@ -57,7 +57,7 @@ namespace ErgometerApplication
             // 
             // updateTimer
             // 
-            this.updateTimer.Interval = 800;
+            this.updateTimer.Interval = 600;
             this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // panelClientContainer

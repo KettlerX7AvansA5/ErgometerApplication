@@ -32,10 +32,8 @@ namespace ErgometerApplication
 
         private void updateTimer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("Trying to send data....");
             if(MainClient.Doctor.Connected)
             {
-                Console.WriteLine("Sending data");
                 MainClient.ComPort.Write("ST");
                 string response = MainClient.ComPort.Read();
                 Meting m = MainClient.SaveMeting(response);
