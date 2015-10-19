@@ -140,7 +140,7 @@ namespace ErgometerApplication
             this.Name = "container";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseWheel);
 
-            Form.CheckForIllegalCrossThreadCalls = false;
+            passChatMessage = new ChatDelegate(this.AddChatItem);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -203,5 +203,8 @@ namespace ErgometerApplication
                 button1_Click(this, new EventArgs());
             }
         }
+
+        public delegate void ChatDelegate(string text, string time, bool isDoctor);
+        public ChatDelegate passChatMessage;
     }
 }

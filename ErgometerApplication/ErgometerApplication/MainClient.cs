@@ -160,7 +160,7 @@ namespace ErgometerApplication
                     break;
                 case NetCommand.CommandType.CHAT:
                     Chat.Add(new ChatMessage(Name, command.ChatMessage, true));
-                    Client.chat.AddChatItem(command.ChatMessage);
+                    Client.chat.Invoke(Client.chat.passChatMessage, new Object[] {command.ChatMessage, Helper.MillisecondsToTime(command.Timestamp), true});
                     break;
                 case NetCommand.CommandType.RESPONSE:
                     Console.WriteLine(command.Response.ToString());
