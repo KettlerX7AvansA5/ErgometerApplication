@@ -72,7 +72,7 @@ namespace ErgometerApplication
                 if (password.Length > 0)
                 {
                     string error = "";
-                    bool connect = MainClient.Connect("COM3", username, password, out error);
+                    bool connect = MainClient.Connect(SerialPort.GetPortNames()[0], username, password, out error);
 
                     if (connect)
                     {
