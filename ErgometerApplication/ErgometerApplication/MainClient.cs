@@ -164,6 +164,7 @@ namespace ErgometerApplication
                 return new Meting(0, 0, 0, 0, 0, 0, 0, 0, 0);
             }
             
+
             Metingen.Add(m);
             if (Doctor.Connected)
             {
@@ -215,7 +216,10 @@ namespace ErgometerApplication
 
         public static void SendNetCommand(NetCommand command)
         {
-            NetHelper.SendNetCommand(Doctor, command);
+            if(! NetHelper.SendNetCommand(Doctor, command))
+            {
+                Disconnect();
+            }
         }
 
         private static void ParseValueSet(NetCommand command)
