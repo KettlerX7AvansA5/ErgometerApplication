@@ -141,7 +141,7 @@ namespace ErgometerApplication
                     throw new Exception("Comport was unable to disconnect");
             }
 
-            if (Doctor.Connected)
+            if (Doctor != null && Doctor.Connected)
             {
                 NetHelper.SendNetCommand(Doctor, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 Loggedin = false;
@@ -185,7 +185,8 @@ namespace ErgometerApplication
                 }
             }
 
-            Doctor.Close();
+            if(Doctor != null)
+                Doctor.Close();
         }
 
         private static void ParseCommand(NetCommand command)
