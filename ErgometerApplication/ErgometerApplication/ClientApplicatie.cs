@@ -56,6 +56,10 @@ namespace ErgometerApplication
 
                     count++;
                 }
+                else
+                {
+                    logout("De Ergometer is niet meer verbonden.", Color.Red);
+                }
             }
         }
 
@@ -124,21 +128,21 @@ namespace ErgometerApplication
 
         }
 
-        public void sessionLogout()
+        private void buttonLogOff_Click(object sender, EventArgs e)
         {
-            MainClient.Disconnect();
+            logout("U bent uitgelogd.", Color.Blue);
         }
 
-        private void buttonLogOff_Click(object sender, EventArgs e)
+        private void logout(string message, System.Drawing.Color cl)
         {
             panelLogin.BringToFront();
             panelTopBar.Visible = false;
-            panelLogin.lblVerification.Text = "U bent uitgelogd.";
-            panelLogin.lblVerification.ForeColor = Color.Blue;
+            panelLogin.lblVerification.Text = message;
+            panelLogin.lblVerification.ForeColor = cl;
             panelLogin.lblVerification.Visible = true;
             panelLogin.textBoxUsername.Text = "";
             panelLogin.textBoxPassword.Text = "";
-            sessionLogout();
+            MainClient.Disconnect();
             updateTimer.Stop();
         }
     }
