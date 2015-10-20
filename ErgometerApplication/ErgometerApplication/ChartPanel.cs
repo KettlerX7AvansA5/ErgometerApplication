@@ -28,13 +28,13 @@ namespace ErgometerApplication
 
             this.Location = new System.Drawing.Point(0, 0);
 
-            this.Size = new System.Drawing.Size(250, 200);
+            this.Size = new System.Drawing.Size(400, 250);
             this.Controls.Add(chart);
 
             this.series = createSerie();
             this.chartArea.Name = "chartArea";
 
-            this.chart.Size = new System.Drawing.Size(250, 200);
+            this.chart.Size = new System.Drawing.Size(400, 250);
 
             this.chart.Dock = DockStyle.Fill;
             this.chart.Series.Add(series);
