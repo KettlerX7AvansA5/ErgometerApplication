@@ -58,7 +58,7 @@ namespace ErgometerApplication
 
         public void validateLogin(string username, string password)
         {
-            if (username.Length >= 4)
+            if (username.Length > 0)
             {
                 if (password.Length == 0)
                 {
@@ -66,13 +66,7 @@ namespace ErgometerApplication
                     panelLogin.lblVerification.ForeColor = Color.Red;
                     panelLogin.lblVerification.Visible = true;
                 }
-                if (password.Length > 0 && password.Length < 4)
-                {
-                    panelLogin.lblVerification.Text = "Vul een wachtwoord in van minimaal 4 karakters.";
-                    panelLogin.lblVerification.ForeColor = Color.Red;
-                    panelLogin.lblVerification.Visible = true;
-                }
-                if (password.Length >= 3)
+                if (password.Length > 0)
                 {
                     string error = "";
                     bool connect = MainClient.Connect(SerialPort.GetPortNames()[0], username, password, out error);
@@ -96,7 +90,7 @@ namespace ErgometerApplication
             }
             else
             {
-                panelLogin.lblVerification.Text = "Vul een gebruikersnaam in van minimaal 4 karakters.";
+                panelLogin.lblVerification.Text = "Vul een gebruikersnaam in.";
                 panelLogin.lblVerification.ForeColor = Color.Red;
                 panelLogin.lblVerification.Visible = true;
             }
@@ -136,6 +130,11 @@ namespace ErgometerApplication
         {
             panelLogin.BringToFront();
             panelTopBar.Visible = false;
+            panelLogin.lblVerification.Text = "U bent uitgelogd.";
+            panelLogin.lblVerification.ForeColor = Color.Blue;
+            panelLogin.lblVerification.Visible = true;
+            panelLogin.textBoxUsername.Text = "";
+            panelLogin.textBoxPassword.Text = "";
             sessionLogout();
             updateTimer.Stop();
         }

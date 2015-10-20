@@ -91,6 +91,7 @@ namespace ErgometerApplication
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(167, 20);
             this.textBoxUsername.TabIndex = 2;
+            this.textBoxUsername.KeyDown += TextBoxPassword_KeyDown;
             // 
             // lblLoginTitle
             // 
