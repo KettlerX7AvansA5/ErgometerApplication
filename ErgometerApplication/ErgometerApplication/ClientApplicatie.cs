@@ -36,23 +36,26 @@ namespace ErgometerApplication
             {
                 MainClient.ComPort.Write("ST");
                 string response = MainClient.ComPort.Read();
-                Meting m = MainClient.SaveMeting(response);
-
-                heartBeat.updateValue(m.HeartBeat);
-                RPM.updateValue(m.RPM);
-                speed.updateValue(m.Speed);
-                distance.updateValue(m.Distance);
-                power.updateValue(m.Power);
-                energy.updateValue(m.Energy);
-                actualpower.updateValue(m.ActualPower);
-
-                if(count >= 10)
+                if (response != "err")
                 {
-                    count = 0;
-                    panelGraphView.updateAllCharts(MainClient.Metingen);
-                }
+                    Meting m = MainClient.SaveMeting(response);
 
-                count++;
+                    heartBeat.updateValue(m.HeartBeat);
+                    RPM.updateValue(m.RPM);
+                    speed.updateValue(m.Speed);
+                    distance.updateValue(m.Distance);
+                    power.updateValue(m.Power);
+                    energy.updateValue(m.Energy);
+                    actualpower.updateValue(m.ActualPower);
+
+                    if (count >= 10)
+                    {
+                        count = 0;
+                        panelGraphView.updateAllCharts(MainClient.Metingen);
+                    }
+
+                    count++;
+                }
             }
         }
 
@@ -69,7 +72,7 @@ namespace ErgometerApplication
                 if (password.Length > 0)
                 {
                     string error = "";
-                    bool connect = MainClient.Connect(SerialPort.GetPortNames()[0], username, password, out error);
+                    bool connect = MainClient.Connect("COM3", username, password, out error);
 
                     if (connect)
                     {

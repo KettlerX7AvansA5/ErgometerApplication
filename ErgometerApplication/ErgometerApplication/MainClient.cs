@@ -153,7 +153,17 @@ namespace ErgometerApplication
 
         public static Meting SaveMeting(string meting)
         {
-            Meting m = Meting.Parse(meting);
+            Meting m = null;
+
+            try
+            {
+                 m = Meting.Parse(meting);
+            }
+            catch(Exception e)
+            {
+                return new Meting(0, 0, 0, 0, 0, 0, 0, 0, 0);
+            }
+            
             Metingen.Add(m);
             if (Doctor.Connected)
             {
@@ -215,25 +225,37 @@ namespace ErgometerApplication
                 case NetCommand.ValueType.DISTANCE:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
+                    ComPort.Write("CM");
+                    ComPort.Read();
+                    Thread.Sleep(700);
                     ComPort.Write("PD " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.ENERGY:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
+                    ComPort.Write("CM");
+                    ComPort.Read();
+                    Thread.Sleep(700);
                     ComPort.Write("PE " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.POWER:
+                    ComPort.Write("CM");
+                    ComPort.Read();
+                    Thread.Sleep(200);
                     ComPort.Write("PW " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.TIME:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
+                    ComPort.Write("CM");
+                    ComPort.Read();
+                    Thread.Sleep(700);
                     string temp = (command.SetValue / 60) + "";
                     if(temp.Length < 2)
                     {
