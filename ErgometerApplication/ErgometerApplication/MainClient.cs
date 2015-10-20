@@ -57,7 +57,7 @@ namespace ErgometerApplication
                 {
                     ComPort.Write("RS");
                     string temp = ComPort.Read();
-                    if (temp == "error")
+                    if (temp == "err")
                     {
                         ComPort.Disconnect();
                         error = "De Ergometer is niet verbonden";
@@ -215,29 +215,37 @@ namespace ErgometerApplication
                 case NetCommand.ValueType.DISTANCE:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(200);
+                    Thread.Sleep(500);
                     ComPort.Write("PD " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.ENERGY:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(200);
+                    Thread.Sleep(500);
                     ComPort.Write("PE " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.POWER:
-                    ComPort.Write("RS");
-                    ComPort.Read();
-                    Thread.Sleep(200);
                     ComPort.Write("PW " + command.SetValue.ToString());
                     ComPort.Read();
                     break;
                 case NetCommand.ValueType.TIME:
                     ComPort.Write("RS");
                     ComPort.Read();
-                    Thread.Sleep(200);
-                    string time = (command.SetValue / 60) + ":" + (command.SetValue % 60);
+                    Thread.Sleep(500);
+                    string temp = (command.SetValue / 60) + "";
+                    if(temp.Length < 2)
+                    {
+                        temp = "0" + temp;
+                    }
+                    string temp2 = (command.SetValue % 60) + "";
+                    if (temp2.Length < 2)
+                    {
+                        temp2 = "0" + temp2;
+                    }
+
+                    string time = temp + temp2;
                     ComPort.Write("PT " + time);
                     ComPort.Read();
                     break;
