@@ -149,7 +149,7 @@ namespace ErgometerApplication
             if (richTextBox1.TextLength > 1)
             {
                 AddChatItem(new ChatMessage("Anon", richTextBox1.Text, false));
-                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
+                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, false, MainClient.Session));
                 richTextBox1.ResetText();
             }
         }
