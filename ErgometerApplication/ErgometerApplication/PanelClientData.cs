@@ -15,11 +15,13 @@ namespace ErgometerApplication
 
         private int min;
         private int max;
+        private string name;
 
         public PanelClientData(string name, int min, int max) : base()
         {
             this.min = min;
             this.max = max;
+            this.name = name;
 
             this.metingName = new System.Windows.Forms.Label();
             this.progressBarMeting = new System.Windows.Forms.ProgressBar();
@@ -30,7 +32,8 @@ namespace ErgometerApplication
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.labelMetingCurrentValue);
-            this.Controls.Add(this.progressBarMeting);
+            if(name != "Tijd")
+                this.Controls.Add(this.progressBarMeting);
             this.Controls.Add(this.metingName);
             this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Location = new System.Drawing.Point(0, 0);
@@ -74,8 +77,16 @@ namespace ErgometerApplication
 
         public void updateValue(int value)
         {
-            this.labelMetingCurrentValue.Text = value.ToString();
-            this.progressBarMeting.Value = ValueToPercentage(value);
+            if (name == "Tijd")
+            {
+                this.labelMetingCurrentValue.Text = (value / 60) + ":" + (value % 60);
+            }
+            else
+            {
+                this.labelMetingCurrentValue.Text = value.ToString();
+                this.progressBarMeting.Value = ValueToPercentage(value);
+            }
+            
         }
 
         public void updateValue(double value)

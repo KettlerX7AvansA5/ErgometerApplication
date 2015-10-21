@@ -50,6 +50,7 @@ namespace ErgometerApplication
             this.power = new PanelClientData("Weerstand", 25, 400);
             this.energy = new PanelClientData("Energie", 0, 200);
             this.actualpower = new PanelClientData("Absolute Weerstand", 0, 400);
+            this.time = new PanelClientData("Tijd", 0, 400);
 
             this.panelClientContainer.SuspendLayout();
             this.panelTopBar.SuspendLayout();
@@ -87,6 +88,7 @@ namespace ErgometerApplication
             this.panelDataViewLeft.Controls.Add(power);
             this.panelDataViewLeft.Controls.Add(energy);
             this.panelDataViewLeft.Controls.Add(actualpower);
+            this.panelDataViewLeft.Controls.Add(time);
 
             // 
             // panelClientChat
@@ -178,7 +180,7 @@ namespace ErgometerApplication
         private System.Windows.Forms.Button buttonLogOff;
         private System.Windows.Forms.Label labelUsername;
         private System.Windows.Forms.Label labelHallo;
-        public PanelClientData heartBeat, RPM, speed, distance, power, energy, seconds, actualpower;
+        public PanelClientData heartBeat, RPM, speed, distance, power, energy, seconds, actualpower, time;
     }
 
     
