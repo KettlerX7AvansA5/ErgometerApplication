@@ -183,6 +183,8 @@ namespace ErgometerApplication
                     NetCommand command = NetHelper.ReadNetCommand(Doctor);
                     ParseCommand(command);
                 }
+                
+                Thread.Sleep(10);
             }
 
             if(Doctor != null)
