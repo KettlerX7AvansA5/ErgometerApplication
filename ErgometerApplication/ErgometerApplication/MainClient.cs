@@ -166,7 +166,7 @@ namespace ErgometerApplication
             
 
             Metingen.Add(m);
-            if (Doctor.Connected)
+            if (Doctor != null && Doctor.Connected)
             {
                 NetHelper.SendNetCommand(Doctor, new NetCommand(m, Session));
             }
